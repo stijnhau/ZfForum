@@ -32,7 +32,12 @@
             <span><?php echo $tag->getMessageCount(); ?></span>
         </td>
         <td>
-            <small><?php echo date_format($tag->getLastPost(), 'H:i D d M Y'); ?></small>
+            <small><?php echo $this->dateFormat(
+    $tag->getLastPost(),
+    IntlDateFormatter::MEDIUM, // date
+    IntlDateFormatter::MEDIUM, // time
+    "nl_NL"
+); ?></small>
         </td>
     </tr>
     <?php endforeach; ?>

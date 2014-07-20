@@ -34,7 +34,12 @@
             <span><?php echo $thread->getMessageCount(); ?></span>
         </td>
         <td>
-            <small><?php echo date_format($thread->getLastPost(), 'H:i D d M Y'); ?></small>
+            <small><?php echo $this->dateFormat(
+    $thread->getLastPost(),
+    IntlDateFormatter::MEDIUM, // date
+    IntlDateFormatter::MEDIUM, // time
+    "nl_NL"
+); ?></small>
         </td>
     </tr>
     <?php endforeach; ?>
