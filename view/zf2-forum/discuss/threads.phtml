@@ -20,7 +20,7 @@
     <?php foreach ($threads as $thread): ?>
     <tr>
         <td>
-            <a href="<?php echo $this->url('zf2forum/thread', array(
+            <a href="<?php echo $this->url('Zf2Forum/thread', array(
                 'tagslug' => $tag->getSlug(),
                 'tagid' => $tag->getTagId(),
                 'threadslug' => $thread->getSlug(),
@@ -44,13 +44,13 @@
 
 <div class="panel panel-primary">
     <div class="panel-heading clearfix">
-        <h4 class="pull-left">New Thread</h4>
+        <h4 class="pull-left"><?php echo $this->translate('New Thread'); ?></h4>
     </div>
     <div class="panel-body">
         <?php
             $form = $this->form;
             $form->prepare();
-	        $form->setAttribute('action', $this->url('zf2forum/newthread', array(
+	        $form->setAttribute('action', $this->url('Zf2Forum/newthread', array(
 	            'tagslug'    => $this->tag->getSlug(),
 	            'tagid'      => $this->tag->getTagId(),
 	        )));

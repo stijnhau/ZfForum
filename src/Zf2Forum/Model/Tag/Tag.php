@@ -204,10 +204,12 @@ class Tag implements TagInterface
      */
     public function setLastPost($lastPost)
     {
-    	if ($lastPost instanceof DateTime) {
-            $this->lastPost = $lastPost;
-        } else {
-            $this->lastPost = new DateTime($lastPost);
+        if ($lastPost !== "" and $lastPost !== "NULL" and $lastPost !== NULL) {
+        	if ($lastPost instanceof DateTime) {
+                $this->lastPost = $lastPost;
+            } else {
+                $this->lastPost = new DateTime($lastPost);
+            }
         }
         return $this;
     }
