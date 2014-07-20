@@ -5,7 +5,7 @@
     "zendframework/zendframework" : "2.*",
     "zf-commons/zfc-base" : "0.*",
     "zf-commons/zfc-user" : "1.*",
-    "bacon/bacon-string-utils" : "=1.*"
+    "bacon/bacon-string-utils" : "1.*"
   },
   "authors" : [ {
     "name" : "Stijn Haulotte",
