@@ -1,15 +1,11 @@
 {
   "name" : "stijnhau/zf2-forum",
-  "repositories" : [ {
-    "type" : "vcs",
-    "url" : "https://github.com/stijnhau/EdpDiscuss"
-  } ],
   "require" : {
     "php" : ">=5.3",
     "zendframework/zendframework" : "2.*",
     "zf-commons/zfc-base" : "0.*",
-    "evandotpro/edpdiscuss" : "dev-master",
-    "zf-commons/zfc-user" : "1.*"
+    "zf-commons/zfc-user" : "1.*",
+    "bacon/bacon-string-utils" : "=1.*"
   },
   "authors" : [ {
     "name" : "Stijn Haulotte",
@@ -19,7 +15,7 @@
   "keywords" : [ "zf2" ],
   "autoload" : {
     "psr-0" : {
-      "EdpDiscuss" : "src/"
+      "Zf2Forum" : "src/"
     },
     "classmap" : [ "./Module.php" ]
   },

@@ -43,7 +43,7 @@ class DiscussController extends AbstractActionController
         }
 
         $threads = $this->getDiscussService()->getLatestThreads(25, 0, $tag->getTagId());
-        $form = $this->getServiceLocator()->get('edpdiscuss_form');
+        $form = $this->getServiceLocator()->get('Zf2Forum_form');
         
         return new ViewModel(array(
             'tag'     => $tag,
@@ -74,7 +74,7 @@ class DiscussController extends AbstractActionController
         }
 
         // Store visit if unique.
-        $visit = $this->getServiceLocator()->get('edpdiscuss_visit');
+        $visit = $this->getServiceLocator()->get('Zf2Forum_visit');
         $visit->setThread($thread);
         $this->getDiscussService()->storeVisitIfUnique($visit);
           
@@ -82,7 +82,7 @@ class DiscussController extends AbstractActionController
         $messages = $this->getDiscussService()->getMessagesByThread($thread);
 
         // Create new form instance.
-        $form = $this->getServiceLocator()->get('edpdiscuss_form');
+        $form = $this->getServiceLocator()->get('Zf2Forum_form');
         
         // Return a view model.
         return new ViewModel(array(
@@ -96,8 +96,8 @@ class DiscussController extends AbstractActionController
     public function newmessageAction()
     {
         // Create new form and hydrator instances.
-        $form = $this->getServiceLocator()->get('edpdiscuss_form');
-        $formHydrator = $this->getServiceLocator()->get('edpdiscuss_post_form_hydrator');
+        $form = $this->getServiceLocator()->get('Zf2Forum_form');
+        $formHydrator = $this->getServiceLocator()->get('Zf2Forum_post_form_hydrator');
         
         $tag = $this->getTag();
         $thread = $this->getThread();
@@ -110,7 +110,7 @@ class DiscussController extends AbstractActionController
             $data = (array) $request->getPost();
           
             // create a new message and sets its thread.
-            $message = $this->getServiceLocator()->get('edpdiscuss_message');
+            $message = $this->getServiceLocator()->get('Zf2Forum_message');
             $message->setThread($thread);
         
             $form->setHydrator($formHydrator);
@@ -144,8 +144,8 @@ class DiscussController extends AbstractActionController
     public function newthreadAction()
     {
     	// Create new form instance.
-        $form = $this->getServiceLocator()->get('edpdiscuss_form');
-        $formHydrator = $this->getServiceLocator()->get('edpdiscuss_post_form_hydrator');
+        $form = $this->getServiceLocator()->get('Zf2Forum_form');
+        $formHydrator = $this->getServiceLocator()->get('Zf2Forum_post_form_hydrator');
         
         $tag = $this->getTag();
         
@@ -157,10 +157,10 @@ class DiscussController extends AbstractActionController
             $data = (array) $request->getPost();
             
             // create a new thread and sets its tag.
-            $thread = $this->getServiceLocator()->get('edpdiscuss_thread');
+            $thread = $this->getServiceLocator()->get('Zf2Forum_thread');
             
             // Create a new message and set its thread.
-            $message = $this->getServiceLocator()->get('edpdiscuss_message');
+            $message = $this->getServiceLocator()->get('Zf2Forum_message');
             $message->setThread($thread);
             
             $form->setHydrator($formHydrator);
@@ -242,7 +242,7 @@ class DiscussController extends AbstractActionController
     public function getDiscussService()
     {
         if (null === $this->discussService) {
-            $this->discussService = $this->getServiceLocator()->get('edpdiscuss_discuss_service');
+            $this->discussService = $this->getServiceLocator()->get('Zf2Forum_discuss_service');
         }
 
         return $this->discussService;

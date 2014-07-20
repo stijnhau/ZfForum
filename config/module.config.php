@@ -10,6 +10,17 @@ return array(
         ),
     ),
     
+    'Zf2Forum' => array(
+        'thread_model_class'  => 'Zf2Forum\Model\Thread\Thread',
+        'message_model_class' => 'Zf2Forum\Model\Message\Message',
+        'tag_model_class'     => 'Zf2Forum\Model\Tag\Tag',
+        'visit_model_class'   => 'Zf2Forum\Model\Visit\Visit'
+    ),
+    'service_manager' => array(
+        'aliases' => array(
+            'Zf2Forum_zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
+        ),
+    ),
     'view_manager' => array('template_path_stack' => array(__DIR__ . '/../view')),
     'controllers' => array(
         'invokables' => array(
