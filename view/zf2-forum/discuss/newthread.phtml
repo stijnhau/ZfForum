@@ -6,7 +6,7 @@
       'tagslug' => $tag->getSlug(),
       'tagid' => $tag->getTagId()
   )); ?>"><?php echo $tag->getName(); ?></a></li>
-  <li class="active">New Thread</li>
+  <li class="active"><?php echo $this->translate('New Thread'); ?></li>
 </ol>
 
 <div class="panel panel-primary">
@@ -17,10 +17,16 @@
         <?php
         $form = $this->form;
         $form->prepare();
-	    $form->setAttribute('action', $this->url('zf2forum', array(
-	        'tagslug'    => $this->tag->getSlug(),
-	        'tagid'      => $this->tag->getTagId(),
-	        'action'     => 'newthread')));
+	    $form->setAttribute(
+            'action',
+            $this->url(
+                'Zf2Forum/newthread',
+                array(
+        	        'tagslug'    => $this->tag->getSlug(),
+        	        'tagid'      => $this->tag->getTagId(),
+    	        )
+            )
+        );
 	    $form->setAttribute('method', 'post');
 	    echo $this->renderForm($form);	
         ?>

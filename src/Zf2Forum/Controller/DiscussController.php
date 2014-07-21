@@ -18,9 +18,11 @@ class DiscussController extends AbstractActionController
     {
         $tags = $this->getDiscussService()->getTags();
 
-        return new ViewModel(array(
-            'tags' => $tags
-        ));
+        return new ViewModel(
+            array(
+                'tags' => $tags
+            )
+        );
         
     }
     
@@ -104,8 +106,7 @@ class DiscussController extends AbstractActionController
         
         // Check if the request is a POST.
         $request = $this->getRequest();
-        if ($request->isPost())
-        {
+        if ($request->isPost()) {
             // POST, so check if valid.
             $data = (array) $request->getPost();
           
@@ -116,28 +117,32 @@ class DiscussController extends AbstractActionController
             $form->setHydrator($formHydrator);
             $form->bind($message);
             $form->setData($data);
-            if ($form->isValid())
-            {
+            if ($form->isValid()) {
           	    // Persist message.
             	$this->getDiscussService()->createMessage($message);
                 
             	// Redirect to list of messages
-		        return $this->redirect()->toRoute('Zf2Forum/thread', array(
-		            'tagslug'    => $tag->getSlug(),
-                    'tagid'      => $tag->getTagId(),
-                    'threadslug' => $thread->getSlug(),
-                    'threadid'   => $thread->getThreadId(),
-		            'action'     => 'messages'
-		        ));
+		        return $this->redirect()->toRoute(
+		            'Zf2Forum/thread',
+		            array(
+    		            'tagslug'    => $tag->getSlug(),
+                        'tagid'      => $tag->getTagId(),
+                        'threadslug' => $thread->getSlug(),
+                        'threadid'   => $thread->getThreadId(),
+    		            'action'     => 'messages'
+    		        )
+		        );
             }
         } 
         
         // If not a POST request, then just render the form.
-        return new ViewModel(array(
-            'form'   => $form,
-            'tag'    => $tag,
-            'thread' => $thread
-        ));
+        return new ViewModel(
+            array(
+                'form'   => $form,
+                'tag'    => $tag,
+                'thread' => $thread
+            )
+        );
           
     }
     
@@ -151,8 +156,7 @@ class DiscussController extends AbstractActionController
         
         // Check if the request is a POST.
         $request = $this->getRequest();
-        if ($request->isPost())
-        {
+        if ($request->isPost()) {
     	    // if post, check if valid
             $data = (array) $request->getPost();
             
@@ -166,8 +170,7 @@ class DiscussController extends AbstractActionController
             $form->setHydrator($formHydrator);
             $form->bind($message);
             $form->setData($data);
-            if ($form->isValid())
-            {
+            if ($form->isValid()) {
                 // Persist message and thread.
                 $thread = $this->getDiscussService()->createThread($thread, $message);
                 
