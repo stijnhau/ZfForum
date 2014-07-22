@@ -87,13 +87,15 @@ class Discuss implements ServiceManagerAwareInterface
     /**
      * createThread
      *
+     * @param TagInterface $tag
      * @param ThreadInterface $thread
      * @param MessageInterface $message
      * @return ThreadInterface
      */
-    public function createThread(ThreadInterface $thread, MessageInterface $message)
+    public function createThread(TagInterface $tag, ThreadInterface $thread, MessageInterface $message)
     {
         $thread->setSubject($message->getSubject());
+        $thread->settag_id($tag->getTagId());
         $thread = $this->threadMapper->persist($thread);
         $message->setPostTime(new \DateTime);
         $message = $this->messageMapper->persist($message);       
@@ -267,22 +269,6 @@ class Discuss implements ServiceManagerAwareInterface
     public function getVisitMapper()
     {
     	return $this->visitMapper;
-    }
-    
-    /**
-     * Associate tag and thread.
-     * 
-     * @param TagInterface $tag
-     * @param ThreadInterface $thread
-     * @return \Zf2Forum\Service\Discuss
-     */
-    public function associateTagAndThread(TagInterface $tag, ThreadInterface $thread)
-    {
-        $this->getTagMapper()->addThread(
-            $tag->getTagId(),
-            $thread->getThreadId()
-        );
-        return $this;
     }
     
     /**

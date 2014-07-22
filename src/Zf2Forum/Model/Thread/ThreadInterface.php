@@ -6,6 +6,9 @@ use Zf2Forum\Model\Message\MessageInterface;
 
 interface ThreadInterface
 {
+    public function getTag_id();
+    public function setTag_id($tagId);
+    
     /**
      * Get threadId.
      *

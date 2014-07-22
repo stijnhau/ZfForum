@@ -37,10 +37,7 @@ class ThreadMapper extends AbstractDbMapper implements ThreadMapperInterface, Db
     public function getLatestThreads($limit = 25, $offset = 0, $tagId = false)
     {
         $select = $this->getSelect();
-        $select->join(array('tt' => 'discuss_thread_tag'),
-                      'tt.thread_id = discuss_thread.thread_id',
-                      array())
-                ->join(array('m' => 'discuss_message'),
+        $select->join(array('m' => 'discuss_message'),
                        'm.thread_id = discuss_thread.thread_id',
                        array(
                            'message_count' => new Expression('COUNT(DISTINCT m.message_id)'),

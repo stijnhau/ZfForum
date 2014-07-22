@@ -172,10 +172,7 @@ class DiscussController extends AbstractActionController
             $form->setData($data);
             if ($form->isValid()) {
                 // Persist message and thread.
-                $thread = $this->getDiscussService()->createThread($thread, $message);
-                
-                // Associate thread with tag.
-                $this->getDiscussService()->AssociateTagAndThread($tag, $thread);
+                $thread = $this->getDiscussService()->createThread($tag, $thread, $message);
                 
                 // Redirect to list of messages
                 return $this->redirect()->toRoute('Zf2Forum/thread', array(

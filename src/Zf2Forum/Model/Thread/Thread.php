@@ -55,6 +55,27 @@ class Thread implements ThreadInterface
     protected $lastPost;
     
     /**
+     * @var integer
+     */
+    protected $tag_id;
+    
+    /**
+     * @return the $tag_id
+     */
+    public function getTag_id()
+    {
+        return $this->tag_id;
+    }
+
+	/**
+     * @param number $tag_id
+     */
+    public function setTag_id($tag_id)
+    {
+        $this->tag_id = $tag_id;
+    }
+
+	/**
      * Get threadId.
      *
      * @return threadId

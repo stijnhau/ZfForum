@@ -1,8 +1,18 @@
+CREATE TABLE discuss_tag
+(
+    tag_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name        VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    slug        VARCHAR(255) NOT NULL
+) ENGINE=InnoDB;
+
 CREATE TABLE discuss_thread
 (
     thread_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     subject   VARCHAR(1000) NOT NULL,
-    slug      VARCHAR(255) NOT NULL
+    slug      VARCHAR(255) NOT NULL,
+    tag_id    INT UNSIGNED NOT NULL,
+    FOREIGN KEY (tag_id) REFERENCES discuss_tag(tag_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE discuss_message
@@ -19,22 +29,6 @@ CREATE TABLE discuss_message
     FOREIGN KEY (author_user_id) REFERENCES user (user_id),
     FOREIGN KEY (thread_id) REFERENCES discuss_thread (thread_id) ON DELETE CASCADE,
     FOREIGN KEY (parent_message_id) REFERENCES discuss_message (message_id)
-) ENGINE=InnoDB;
-
-CREATE TABLE discuss_tag
-(
-    tag_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    name        VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
-    slug        VARCHAR(255) NOT NULL
-) ENGINE=InnoDB;
-
-CREATE TABLE discuss_thread_tag
-(
-    thread_id INT UNSIGNED NOT NULL,
-    tag_id    INT UNSIGNED DEFAULT NULL,
-    FOREIGN KEY (thread_id) REFERENCES discuss_thread (thread_id),
-    FOREIGN KEY (tag_id) REFERENCES discuss_tag (tag_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE discuss_visit
