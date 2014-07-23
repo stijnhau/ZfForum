@@ -3,12 +3,12 @@
 <?php
     $form = $this->form;
     $form->prepare();
-	$form->setAttribute('action', $this->url('Zf2Forum/thread', array(
+	$form->setAttribute('action', $this->url('Zf2Forum/thread/newmessage', array(
 	    'tagslug'    => $this->tag->getSlug(),
 	    'tagid'      => $this->tag->getTagId(),
 	    'threadslug' => $this->thread->getSlug(),
 	    'threadid'   => $this->thread->getThreadId(),
-	    'action'     => 'newmessage')));
+	)));
 	$form->setAttribute('method', 'post');
 	echo $this->renderForm($form);	
 ?>
