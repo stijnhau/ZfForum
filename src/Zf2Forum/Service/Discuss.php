@@ -123,6 +123,7 @@ class Discuss implements ServiceManagerAwareInterface
     public function createMessage(MessageInterface $message)
     {   
         // Set post time and persist message.
+        $message->setUser_id($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
         $message->setPostTime(new \DateTime);
         $message = $this->messageMapper->persist($message);
      //   $this->events()->trigger(__FUNCTION__, $this, array('message' => $message));

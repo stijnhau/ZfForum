@@ -2,8 +2,7 @@
 
 namespace Zf2Forum\Model\Message;
 
-use ZfcUser\Model\UserInterface,
-    DateTime;
+use DateTime;
 
 interface MessageInterface
 {
@@ -34,48 +33,6 @@ interface MessageInterface
      * @param mixed $postTime the value to be set
      */
     public function setPostTime($postTime);
-
-    /**
-     * Get authorName.
-     *
-     * @return sring
-     */
-    public function getAuthorName();
-
-    /**
-     * Set authorName.
-     *
-     * @param string $authorName the value to be set
-     */
-    public function setAuthorName($authorName);
-
-    /**
-     * Get authorEmail.
-     *
-     * @return string
-     */
-    public function getAuthorEmail();
-
-    /**
-     * Set authorEmail.
-     *
-     * @param string $authorEmail the value to be set
-     */
-    public function setAuthorEmail($authorEmail);
-
-    /**
-     * Get authorUser.
-     *
-     * @return UserInterface
-     */
-    public function getAuthorUser();
-
-    /**
-     * Set authorUser.
-     *
-     * @param UserInterface $authorUser the value to be set
-     */
-    public function setAuthorUser(UserInterface $authorUser);
 
     /**
      * Get subject.
@@ -118,4 +75,14 @@ interface MessageInterface
      * @param int $parentMessageId the value to be set
      */
     public function setParentMessageId($parentMessageId);
+    
+    /**
+     * @return the $user_id
+     */
+    public function getUser_id();
+    
+    /**
+     * @param number $user_id
+     */
+    public function setUser_id($user_id);
 }

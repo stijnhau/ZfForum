@@ -2,7 +2,6 @@
 
 namespace Zf2Forum\Model\Message;
 
-use ZfcUser\Model\UserInterface;
 use DateTime;
 
 class Message implements MessageInterface
@@ -16,21 +15,6 @@ class Message implements MessageInterface
      * @var DateTime
      */
     protected $postTime;
-
-    /**
-     * @var string
-     */
-    protected $authorName;
-
-    /**
-     * @var string
-     */
-    protected $authorEmail;
-
-    /**
-     * @var UserInterface
-     */
-    protected $authorUser;
 
     /**
      * @var ThreadInterface
@@ -51,8 +35,29 @@ class Message implements MessageInterface
      * @var int
      */
     protected $parentMessageId;
+    
+    /**
+     * @var int
+     */
+    protected $user_id;
 
     /**
+     * @return the $user_id
+     */
+    public function getUser_id()
+    {
+        return $this->user_id;
+    }
+
+	/**
+     * @param number $user_id
+     */
+    public function setUser_id($user_id)
+    {
+        $this->user_id = $user_id;
+    }
+
+	/**
      * Get messageId.
      *
      * @return int
@@ -95,69 +100,6 @@ class Message implements MessageInterface
         } else {
             $this->postTime = new DateTime($postTime);
         }
-        return $this;
-    }
-
-    /**
-     * Get authorName.
-     *
-     * @return sring
-     */
-    public function getAuthorName()
-    {
-        return $this->authorName;
-    }
-
-    /**
-     * Set authorName.
-     *
-     * @param string $authorName the value to be set
-     */
-    public function setAuthorName($authorName)
-    {
-        $this->authorName = $authorName;
-        return $this;
-    }
-
-    /**
-     * Get authorEmail.
-     *
-     * @return string
-     */
-    public function getAuthorEmail()
-    {
-        return $this->authorEmail;
-    }
-
-    /**
-     * Set authorEmail.
-     *
-     * @param string $authorEmail the value to be set
-     */
-    public function setAuthorEmail($authorEmail)
-    {
-        $this->authorEmail = $authorEmail;
-        return $this;
-    }
-
-    /**
-     * Get authorUser.
-     *
-     * @return UserInterface
-     */
-    public function getAuthorUser()
-    {
-        return $this->authorUser;
-    }
-
-    /**
-     * Set authorUser.
-     *
-     * @param UserInterface $authorUser the value to be set
-     */
-    public function setAuthorUser(UserInterface $authorUser)
-    {
-        $this->authorUser = $authorUser;
         return $this;
     }
 

@@ -4,7 +4,6 @@ namespace Zf2Forum\Model\Message;
 
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zf2Forum\Model\Message\MessageInterface;
-use ZfcUser\Entity\UserInterface;
 
 class MessageHydrator extends ClassMethods
 {
@@ -21,11 +20,7 @@ class MessageHydrator extends ClassMethods
             throw new Exception\InvalidArgumentException('$object must be an instance of Zf2Forum\Model\Message\MessageInterface');
         }
         $data = parent::extract($object);
-        
-        $user = $object->getAuthorUser();
-        if (!$user instanceof UserInterface) {
-            unset($data['author_user']);
-        }
+
         
         $thread = $object->getThread();
         $data['thread_id'] = (int)$thread->getThreadId();
