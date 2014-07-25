@@ -11,7 +11,7 @@ Forum module for zf2
 ## Installation
 
 ### Using composer
-1. Add `stijnhau/private-messaging` (version `dev-master`) to requirements
+1. Add `stijnhau/zf2-forum` (version `dev-master`) to requirements
 2. Run `update` command on composer
 3. enable it in your `application.config.php` file.
 4. Add the mysql.sql file to your database
