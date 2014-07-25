@@ -24,7 +24,10 @@
         <p><?php echo $message->getMessage(); ?></p>
     </div>
 </div>
-<?php endforeach; ?>
+<?php endforeach; 
+
+if ($this->showQuickReply === true) {
+?>
 
 <div class="panel panel-primary">
     <div class="panel-heading clearfix">
@@ -45,7 +48,9 @@
         ?>
     </div>
 </div>
-
+<?php 
+}
+?>
 <a href="<?php echo $this->url('Zf2Forum/thread/newmessage', array(
 	            'tagslug'    => $this->tag->getSlug(),
 	            'tagid'      => $this->tag->getTagId(),

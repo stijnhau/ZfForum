@@ -1,0 +1,11 @@
+<?php
+
+return array(
+    'zf2forum' => array(
+        /* Show a quick reply option inside a topic
+         * 
+         * Default: false
+         */
+        'showQuickReply'    => false
+    ),
+);

@@ -31,6 +31,8 @@ class Module
                 'Zf2Forum_post_form_hydrator' => 'Zend\Stdlib\Hydrator\ClassMethods'
             ),
             'factories' => array(
+                'Zf2Forum\ModuleOptions' => 'Zf2Forum\Factory\ModuleOptionsFactory',
+                
                 'Zf2Forum_discuss_service' => function($sm) {
                     $service = new \Zf2Forum\Service\Discuss;
                     $service->setThreadMapper($sm->get('Zf2Forum_thread_mapper'))
