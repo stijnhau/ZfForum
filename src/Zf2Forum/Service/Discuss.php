@@ -111,6 +111,7 @@ class Discuss implements ServiceManagerAwareInterface
         $thread->settag_id($tag->getTagId());
         $thread = $this->threadMapper->persist($thread);
         $message->setPostTime(new \DateTime);
+        $message->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
         $message = $this->messageMapper->persist($message);       
         //$this->events()->trigger(__FUNCTION__, $this, array('thread' => $thread));
         return $thread;
@@ -136,7 +137,7 @@ class Discuss implements ServiceManagerAwareInterface
     public function createMessage(MessageInterface $message)
     {   
         // Set post time and persist message.
-        $message->setUser_id($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
+        $message->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
         $message->setPostTime(new \DateTime);
         $message = $this->messageMapper->persist($message);
      //   $this->events()->trigger(__FUNCTION__, $this, array('message' => $message));
