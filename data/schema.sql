@@ -19,7 +19,7 @@ CREATE TABLE discuss_message
 (
     message_id        INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
     post_time         DATETIME NOT NULL,
-    user_id           INT UNSIGNED DEFAULT NULL,
+    user_id           INT UNSIGNED NOT NULL,
     thread_id         INT UNSIGNED NOT NULL,
     parent_message_id INT UNSIGNED DEFAULT NULL,
     subject           VARCHAR(100) NOT NULL,
