@@ -81,7 +81,20 @@ class Discuss implements ServiceManagerAwareInterface
      */
     public function getMessagesByThread(ThreadInterface $thread, $limit = 25, $offset = 0)
     {
-        return $this->messageMapper->getMessagesByThread($thread->getThreadId(), $limit, $offset);
+        $messages = $this->messageMapper->getMessagesByThread($thread->getThreadId(), $limit, $offset);
+        $messagesRet = array();
+        foreach ($messages as $message) {
+            $sender = $this->getServiceManager()->get("Zf2Forum_user_mapper")->findById($message->getUserId());
+            /**
+             * @return \Zd2Forum\Options\ModuleOptions 
+             */
+            $options = $this->getServiceManager()->get('Zf2Forum\ModuleOptions');
+            $funcName = "get" . $options->getUserColumn();
+            $message->user = $sender->$funcName();
+            $messagesRet[] = $message;
+        }
+        
+        return $messagesRet;
     }
 
     /**

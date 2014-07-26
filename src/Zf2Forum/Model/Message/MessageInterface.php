@@ -79,10 +79,10 @@ interface MessageInterface
     /**
      * @return the $user_id
      */
-    public function getUser_id();
+    public function getUserId();
     
     /**
      * @param number $user_id
      */
-    public function setUser_id($user_id);
+    public function setUserId($userId);
 }

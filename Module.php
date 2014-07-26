@@ -32,6 +32,7 @@ class Module
             ),
             'factories' => array(
                 'Zf2Forum\ModuleOptions' => 'Zf2Forum\Factory\ModuleOptionsFactory',
+                'Zf2Forum_user_mapper' => 'Zf2Forum\Factory\UserMapperFactory',
                 
                 'Zf2Forum_discuss_service' => function($sm) {
                     $service = new \Zf2Forum\Service\Discuss;

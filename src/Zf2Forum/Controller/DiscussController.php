@@ -9,13 +9,24 @@ use Zend\Stdlib\ResponseDescription as Response;
 class DiscussController extends AbstractActionController
 {
     protected $discussService;
-
     protected $tag;
-
     protected $thread;
-    
     protected $moduleOptions;
-
+    protected $userMapper;
+    
+    /**
+     * gets User Mapper
+     *
+     * @return Zf2Forum\Mapper\UserMapper
+     */
+    protected function getUserMapper()
+    {
+        if (!$this->userMapper) {
+            $this->userMapper = $this->getServiceLocator()->get('zfcuser_user_mapper');
+        }
+    
+        return $this->userMapper;
+    }
     
     /**
      * gets module options from ServiceManager

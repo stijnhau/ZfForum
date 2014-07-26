@@ -6,21 +6,39 @@ use Zend\Stdlib\AbstractOptions;
 
 class ModuleOptions extends AbstractOptions
 {
-    protected $showQuickReply = false;
+    protected $_showQuickReply = false;
+    protected $_userColumn = "email";
+    
     
 	/**
-     * @return the $showQuickReply
+     * @return the $_showQuickReply
      */
     public function getShowQuickReply()
     {
-        return $this->showQuickReply;
+        return $this->_showQuickReply;
     }
 
 	/**
-     * @param boolean $showQuickReply
+     * @return the $_userColumn
      */
-    public function setShowQuickReply($showQuickReply)
+    public function getUserColumn()
     {
-        $this->showQuickReply = $showQuickReply;
+        return $this->_userColumn;
     }
+
+	/**
+     * @param boolean $_showQuickReply
+     */
+    public function setShowQuickReply($_showQuickReply)
+    {
+        $this->_showQuickReply = $_showQuickReply;
+    }
+
+	/**
+     * @param string $_userColumn
+     */
+    public function setUserColumn($_userColumn)
+    {
+        $this->_userColumn = $_userColumn;
+    }   
 }

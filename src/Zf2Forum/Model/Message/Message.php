@@ -39,22 +39,22 @@ class Message implements MessageInterface
     /**
      * @var int
      */
-    protected $user_id;
+    protected $userId;
 
-    /**
-     * @return the $user_id
+	/**
+     * @return the $userId
      */
-    public function getUser_id()
+    public function getUserId()
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
 	/**
-     * @param number $user_id
+     * @param number $userId
      */
-    public function setUser_id($user_id)
+    public function setUserId($userId)
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
     }
 
 	/**

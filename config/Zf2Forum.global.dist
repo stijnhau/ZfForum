@@ -6,6 +6,13 @@ return array(
          * 
          * Default: false
          */
-        'showQuickReply'    => false
+        'showQuickReply'    => false,
+        
+        /*
+         * Dow we want to show the navigation menu inside the messaging module.
+         * To go from inbox to outbox and to the compose dirtectly?
+         * Default value: email
+         */
+        'userColumn' => "email",
     ),
 );
