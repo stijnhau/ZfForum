@@ -17,13 +17,12 @@
 
     <tbody>
     <?php foreach($tags as $tag): ?>
-    <tr>
+    <tr onclick="location.href='<?php echo $this->url('Zf2Forum', array(
+        'tagslug' => $tag->getSlug(),
+        'tagid' => $tag->getTagId()
+    ));?>'" onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='hand'">
         <td>
-            <a href="<?php echo $this->url('Zf2Forum', array(
-                'tagslug' => $tag->getSlug(),
-                'tagid' => $tag->getTagId()
-            ));?>"><?php echo $tag->getName(); ?></a>
-            <br><?php echo $tag->getDescription(); ?>
+            <?php echo $tag->getName() . "<br />" . $tag->getDescription(); ?>
         </td>
         <td>
             <span><?php echo $tag->getThreadCount(); ?></span>
