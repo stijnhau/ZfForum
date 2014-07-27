@@ -23,14 +23,14 @@
 
     <tbody>
     <?php foreach ($threads as $thread): ?>
-    <tr>
-        <td>
-            <a href="<?php echo $this->url('Zf2Forum/thread', array(
+    <tr onclick="location.href='<?php echo $this->url('Zf2Forum/thread', array(
                 'tagslug' => $tag->getSlug(),
                 'tagid' => $tag->getTagId(),
                 'threadslug' => $thread->getSlug(),
                 'threadid' => $thread->getThreadId()
-            )); ?>"><?php echo $thread->getSubject(); ?></a>
+            )); ?>'" onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='hand'">
+        <td>
+            <?php echo $thread->getSubject(); ?>
         </td>
         <td>
             <span><?php echo $thread->getVisitCount(); ?></span>
