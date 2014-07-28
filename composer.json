@@ -7,6 +7,9 @@
     "zf-commons/zfc-user" : "1.*",
     "bacon/bacon-string-utils" : "1.*"
   },
+  "suggest": {
+    "stijnhau/zf2-forum-admin": "The admin module fot this forum"
+  },
   "authors" : [ {
     "name" : "Stijn Haulotte",
     "email" : "stijnhau@gmail.com",
