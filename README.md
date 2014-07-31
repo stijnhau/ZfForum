@@ -27,3 +27,13 @@ Forum module for zf2
 
 1. PHP >= 5.3.0
 2. ZfcUser >= 1.0.0
+
+## features
+1. Create topic.
+2. Reply on topic.
+3. enable and disable quickreply.
+4. Show poster bu customvield
+5. Click on username top redirect to profile[TODO]
+6. edit your own post[TODO]
+7. Show posttime as time ago [TODO]
+8. Quote posts [todo]
