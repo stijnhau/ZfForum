@@ -2,7 +2,9 @@
 
 namespace Zf2Forum\Service;
 
-use Zf2Forum\Model\Message\MessageInterface,
+use Zend\ServiceManager\ServiceManagerAwareInterface,
+    Zend\ServiceManager\ServiceManager,
+    Zf2Forum\Model\Message\MessageInterface,
     Zf2Forum\Model\Message\MessageMapperInterface,
     Zf2Forum\Model\Thread\ThreadInterface,
     Zf2Forum\Model\Thread\ThreadMapperInterface,
@@ -10,11 +12,9 @@ use Zf2Forum\Model\Message\MessageInterface,
     Zf2Forum\Model\Tag\TagMapperInterface,
     Zf2Forum\Model\Visit\VisitInterface,
     Zf2Forum\Model\Visit\VisitMapperInterface,
-    ZfcUser\Module as ZfcUser,
-    Zend\ServiceManager\ServiceManagerAwareInterface,
-    Zend\ServiceManager\ServiceManager;
+    ZfcBase\EventManager\EventProvider;
 
-class Discuss implements ServiceManagerAwareInterface
+class Discuss extends EventProvider implements ServiceManagerAwareInterface
 {
     /**
      * @var ServiceManager
@@ -109,11 +109,31 @@ class Discuss implements ServiceManagerAwareInterface
     {
         $thread->setSubject($message->getSubject());
         $thread->settag_id($tag->getTagId());
-        $thread = $this->threadMapper->persist($thread);
+        
         $message->setPostTime(new \DateTime);
         $message->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
-        $message = $this->messageMapper->persist($message);       
-        //$this->events()->trigger(__FUNCTION__, $this, array('thread' => $thread));
+        
+        $this->getEventManager()->trigger(
+            __FUNCTION__,
+            $message,
+            array(
+                'message' => $message,
+                'thread'  => $thread,
+            )
+        );
+        
+        $thread = $this->threadMapper->persist($thread);
+        $message = $this->messageMapper->persist($message);
+        
+        $this->getEventManager()->trigger(
+            __FUNCTION__ . '.post',
+            $message,
+            array(
+                'message' => $message,
+                'thread'  => $thread,
+            )
+        );
+        
         return $thread;
     }
 
@@ -139,8 +159,24 @@ class Discuss implements ServiceManagerAwareInterface
         // Set post time and persist message.
         $message->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
         $message->setPostTime(new \DateTime);
+        
+        $this->getEventManager()->trigger(
+            __FUNCTION__,
+            $message,
+            array(
+                'message' => $message,
+            )
+        );
+        
         $message = $this->messageMapper->persist($message);
-     //   $this->events()->trigger(__FUNCTION__, $this, array('message' => $message));
+        
+        $this->getEventManager()->trigger(
+            __FUNCTION__ . '.post',
+            $message,
+            array(
+                'message' => $message,
+            )
+        );
         return $message;
     }
 
