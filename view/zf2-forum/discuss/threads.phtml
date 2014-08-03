@@ -1,7 +1,7 @@
 <h3><?php echo $tag->getName()?></h3>
 
 <ol class="breadcrumb">
-  <li><a href="<?php echo $this->url('forum'); ?>">Forum List</a></li>
+  <li><a href="<?php echo $this->url('forum'); ?>"><?php echo $this->translate("Forum List"); ?></a></li>
   <li class="active"><?php echo $tag->getName(); ?></li>
 </ol>
 
@@ -14,10 +14,10 @@
 
     <thead>
     <tr>
-        <th>Threads</th>
-        <th>Views</th>
-        <th>Posts</th>
-        <th>Last Post</th>
+        <th><?php echo $this->translate("Threads"); ?></th>
+        <th><?php echo $this->translate("Views"); ?></th>
+        <th><?php echo $this->translate("Posts"); ?></th>
+        <th><?php echo $this->translate("Last Post"); ?></th>
     </tr>
     </thead>
 
