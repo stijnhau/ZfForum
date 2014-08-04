@@ -28,11 +28,14 @@ class Module
     {
         return array(
             'invokables' => array(
-                'Zf2Forum_post_form_hydrator' => 'Zend\Stdlib\Hydrator\ClassMethods'
+                'Zf2Forum_post_form_hydrator'   => 'Zend\Stdlib\Hydrator\ClassMethods',
+                'Zf2Forum_thread'               => 'Zf2Forum\Model\Thread\Thread',
+                'Zf2Forum_message'              => 'Zf2Forum\Model\Message\Message',
+                'Zf2Forum_form'                 => 'Zf2Forum\Form\PostForm',
             ),
             'factories' => array(
-                'Zf2Forum\ModuleOptions' => 'Zf2Forum\Factory\ModuleOptionsFactory',
-                'Zf2Forum_user_mapper' => 'Zf2Forum\Factory\UserMapperFactory',
+                'Zf2Forum\ModuleOptions'        => 'Zf2Forum\Factory\ModuleOptionsFactory',
+                'Zf2Forum_user_mapper'          => 'Zf2Forum\Factory\UserMapperFactory',
                 
                 'Zf2Forum_discuss_service' => function($sm) {
                     $service = new \Zf2Forum\Service\Discuss;
@@ -74,18 +77,6 @@ class Module
                     $mapper->setHydrator(new \Zend\StdLib\Hydrator\ClassMethods);
                     return $mapper;
                 },
-                'Zf2Forum_thread' => function ($sm) {
-                    $thread = new \Zf2Forum\Model\Thread\Thread;
-                    return $thread;
-                },
-                'Zf2Forum_message' => function ($sm) {
-                    $message = new \Zf2Forum\Model\Message\Message;
-                    return $message;
-                },
-                'Zf2Forum_form' => function ($sm) {
-                    $form = new \Zf2Forum\Form\PostForm;
-                    return $form;
-                },
                 'Zf2Forum_visit' => function ($sm) {
                     $visit = new \Zf2Forum\Model\Visit\Visit;
                     $visit->setIpAddress($_SERVER['REMOTE_ADDR'])
@@ -95,7 +86,7 @@ class Module
             ),
             'initializers' => array(
                 function($instance, $sm){
-                    if($instance instanceof Service\DbAdapterAwareInterface){
+                    if ($instance instanceof Service\DbAdapterAwareInterface) {
                         $dbAdapter = $sm->get('Zf2Forum_zend_db_adapter');
                         return $instance->setDbAdapter($dbAdapter);
                     }
