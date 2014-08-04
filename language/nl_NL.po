@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZfcUser\n"
 "Report-Msgid-Bugs-To: zf-devteam@zend.com\n"
-"POT-Creation-Date: 2014-08-03 10:13+0100\n"
-"PO-Revision-Date: 2014-08-03 11:00+0100\n"
+"POT-Creation-Date: 2014-08-04 19:17+0100\n"
+"PO-Revision-Date: 2014-08-04 19:18+0100\n"
 "Last-Translator: Stijnhau <stijnhau@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: nl_NL\n"
@@ -41,7 +41,7 @@ msgid "Last Post"
 msgstr "Laatse bericht"
 
 #: view/zf2-forum/discuss/messages.phtml:15
-msgid " by "
+msgid "by"
 msgstr "door"
 
 #: view/zf2-forum/discuss/messages.phtml:34
