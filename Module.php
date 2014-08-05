@@ -122,7 +122,8 @@ class Module
     {
         return array(
             'invokables' => array(
-                'RenderForm' => 'Zf2Forum\View\Helper\RenderForm'
+                'RenderForm'    => 'Zf2Forum\View\Helper\RenderForm',
+                'menu_helper'   => 'PrivateMessaging\View\Helper\Menuhelper'
             )
         );
     
