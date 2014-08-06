@@ -66,10 +66,13 @@ class DiscussController extends AbstractActionController
         $tag = $this->getTag();
 
         if (0 === $verifyTag) {
-            return $this->redirect()->toRoute('Zf2Forum', array(
-                'tagslug' => $tag->getSlug(),
-                'tagid'   => $tag->getTagId()
-            ));
+            return $this->redirect()->toRoute(
+                'Zf2Forum',
+                array(
+                    'tagslug' => $tag->getSlug(),
+                    'tagid'   => $tag->getTagId()
+                )
+            );
         }
 
         $threads = $this->getDiscussService()->getLatestThreads(25, 0, $tag->getTagId());
@@ -97,12 +100,15 @@ class DiscussController extends AbstractActionController
         $thread = $this->getThread();
 
         if (0 === $verifyTag || 0 === $verifyThread) {
-            return $this->redirect()->toRoute('Zf2Forum/thread', array(
-                'tagslug'    => $tag->getSlug(),
-                'tagid'      => $tag->getTagId(),
-                'threadslug' => $thread->getSlug(),
-                'threadid'   => $thread->getThreadId(),
-            ));
+            return $this->redirect()->toRoute(
+                'Zf2Forum/thread',
+                array(
+                    'tagslug'       => $tag->getSlug(),
+                    'tagid'         => $tag->getTagId(),
+                    'threadslug'    => $thread->getSlug(),
+                    'threadid'      => $thread->getThreadId(),
+                )
+            );
         }
 
         // Store visit if unique.
@@ -123,6 +129,7 @@ class DiscussController extends AbstractActionController
                 'thread'         => $thread,
                 'messages'       => $messages,
                 'showQuickReply' => $this->getModuleOptions()->getShowQuickReply(),
+                'showTimeAgo'   => $this->getModuleOptions()->getShowTimeAgo(),
                 'form'           => $form
             )
         );

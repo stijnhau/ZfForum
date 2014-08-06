@@ -14,5 +14,11 @@ return array(
          * Default value: email
          */
         'userColumn' => "email",
+        
+        /**
+         * Option to show the datetime value or a timeago value for date's.
+         * Default value: true
+         */
+        'showTimeAgo' => false,
     ),
 );

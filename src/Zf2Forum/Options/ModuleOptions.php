@@ -8,8 +8,25 @@ class ModuleOptions extends AbstractOptions
 {
     protected $_showQuickReply = false;
     protected $_userColumn = "email";
+    protected $_showTimeAgo = false;
     
     
+	/**
+     * @return the $_showTimeAgo
+     */
+    public function getShowTimeAgo()
+    {
+        return $this->_showTimeAgo;
+    }
+
+	/**
+     * @param boolean $_showTimeAgo
+     */
+    public function setShowTimeAgo($_showTimeAgo)
+    {
+        $this->_showTimeAgo = $_showTimeAgo;
+    }
+
 	/**
      * @return the $_showQuickReply
      */
