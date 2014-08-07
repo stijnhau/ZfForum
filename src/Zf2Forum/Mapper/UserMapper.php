@@ -1,9 +1,6 @@
 <?php
-
 namespace Zf2Forum\Mapper;
 
-use Zend\Db\Sql\Expression as SqlExpression;
-use ZfcUser\Entity\UserInterface;
 use Zend\Db\Sql\Select;
 use Zend\Filter\Word\UnderscoreToCamelCase;
 
@@ -25,7 +22,7 @@ class UserMapper extends \ZfcUser\Mapper\User
      * @param UserInterface $currentUser
      * @return void
      */
-    public function setCurrentUser(UserInterface $currentUser)
+    public function setCurrentUser($currentUser)
     {
         $this->currentUser = $currentUser;
     }
