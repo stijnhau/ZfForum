@@ -35,5 +35,6 @@ Forum module for zf2
 4. Show poster bu customvield
 5. Click on username top redirect to profile[TODO]
 6. edit your own post[TODO]
-7. Show posttime as time ago [TODO]
+7. Show posttime as time ago [WIP]
 8. Quote posts [todo]
+9. Block opening forum if not logged in.
