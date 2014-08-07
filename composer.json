@@ -2,6 +2,7 @@
   "name" : "stijnhau/zf2-forum",
   "require" : {
     "php" : ">=5.3",
+    "ext-intl" : "*",
     "zendframework/zendframework" : "2.*",
     "zf-commons/zfc-base" : "0.*",
     "zf-commons/zfc-user" : "1.*",
