@@ -31,12 +31,12 @@
             <span><?php echo $tag->getMessageCount(); ?></span>
         </td>
         <td>
-            <small><?php echo $this->dateFormat(
+            <small><?php echo $this->privateSmartTime()->fromDateTime($this->dateFormat(
     $tag->getLastPost(),
     IntlDateFormatter::MEDIUM, // date
     IntlDateFormatter::MEDIUM, // time
     "nl_NL"
-); ?></small>
+)); ?></small>
         </td>
     </tr>
     <?php endforeach; ?>

@@ -39,12 +39,12 @@
             <span><?php echo $thread->getMessageCount(); ?></span>
         </td>
         <td>
-            <small><?php echo $this->dateFormat(
+            <small><?php echo $this->privateSmartTime()->fromDateTime($this->dateFormat(
     $thread->getLastPost(),
     IntlDateFormatter::MEDIUM, // date
     IntlDateFormatter::MEDIUM, // time
     "nl_NL"
-); ?></small>
+)); ?></small>
         </td>
     </tr>
     <?php endforeach; ?>

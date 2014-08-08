@@ -48,7 +48,8 @@ class DiscussController extends AbstractActionController
 
         return new ViewModel(
             array(
-                'tags' => $tags
+                'tags'          => $tags,
+                'showTimeAgo'   => $this->getModuleOptions()->getShowTimeAgo(),
             )
         );
         
@@ -80,9 +81,10 @@ class DiscussController extends AbstractActionController
         
         return new ViewModel(
             array(
-                'tag'     => $tag,
-                'threads' => $threads,
-                'form'    => $form
+                'tag'           => $tag,
+                'threads'       => $threads,
+                'showTimeAgo'   => $this->getModuleOptions()->getShowTimeAgo(),
+                'form'          => $form
             )
         );
     }
@@ -129,7 +131,7 @@ class DiscussController extends AbstractActionController
                 'thread'         => $thread,
                 'messages'       => $messages,
                 'showQuickReply' => $this->getModuleOptions()->getShowQuickReply(),
-                'showTimeAgo'   => $this->getModuleOptions()->getShowTimeAgo(),
+                'showTimeAgo'    => $this->getModuleOptions()->getShowTimeAgo(),
                 'form'           => $form
             )
         );
