@@ -38,3 +38,4 @@ Forum module for zf2
 7. Show posttime as time ago.
 8. Quote posts [todo]
 9. Block opening forum if not logged in. [BybAuthorize)
+10. Multilanguage
