@@ -33,14 +33,13 @@
         <td>
             <small><?php echo $this->privateSmartTime()->fromDateTime($this->dateFormat(
     $tag->getLastPost(),
-    IntlDateFormatter::MEDIUM, // date
-    IntlDateFormatter::MEDIUM, // time
+    \IntlDateFormatter::MEDIUM, // date
+    \IntlDateFormatter::MEDIUM, // time
     "nl_NL"
 )); ?></small>
         </td>
     </tr>
     <?php endforeach; ?>
     </tbody>
-    
+
 </table>
-  

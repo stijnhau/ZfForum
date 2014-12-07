@@ -18,8 +18,8 @@
 echo $this->privateSmartTime()->fromDateTime(
         $this->dateFormat(
         $message->getPostTime(),
-        IntlDateFormatter::MEDIUM, // date
-        IntlDateFormatter::MEDIUM, // time
+        \IntlDateFormatter::MEDIUM, // date
+        \IntlDateFormatter::MEDIUM, // time
         "nl_NL"
     )
 );
@@ -29,7 +29,7 @@ echo $this->privateSmartTime()->fromDateTime(
         <p><?php echo $message->getMessage(); ?></p>
     </div>
 </div>
-<?php endforeach; 
+<?php endforeach;
 
 if ($this->showQuickReply === true) {
 ?>
@@ -49,11 +49,11 @@ if ($this->showQuickReply === true) {
 	            'threadid'   => $this->thread->getThreadId(),
 	            'action'     => 'newmessage')));
 	        $form->setAttribute('method', 'post');
-	        echo $this->renderForm($form);	
+	        echo $this->renderForm($form);
         ?>
     </div>
 </div>
-<?php 
+<?php
 }
 ?>
 <a href="<?php echo $this->url('Zf2Forum/thread/newmessage', array(
@@ -62,4 +62,3 @@ if ($this->showQuickReply === true) {
 	            'threadslug' => $this->thread->getSlug(),
 	            'threadid'   => $this->thread->getThreadId()
 	            )); ?>"><?php echo $this->translate("Reply") ;?></a>
-    
