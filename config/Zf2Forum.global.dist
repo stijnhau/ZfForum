@@ -3,22 +3,28 @@
 return array(
     'zf2forum' => array(
         /* Show a quick reply option inside a topic
-         * 
+         *
          * Default: false
          */
         'showQuickReply'    => false,
-        
+
         /*
          * Dow we want to show the navigation menu inside the messaging module.
          * To go from inbox to outbox and to the compose dirtectly?
          * Default value: email
          */
         'userColumn' => "email",
-        
+
         /**
          * Option to show the datetime value or a timeago value for date's.
          * Default value: true
          */
         'showTimeAgo' => false,
+
+        /**
+         * Do we allow editing of posts after they are posted.
+         * Default value: true
+         */
+         'editPosts' => true,
     ),
 );
