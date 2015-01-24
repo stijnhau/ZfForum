@@ -10,21 +10,21 @@ Forum module for zf2
 
 ## Installation
 
-### Using composer
+### Using composer (Proposed option)
 1. Add `stijnhau/zf2-forum` (version `dev-master`) to requirements
 2. Run `update` command on composer
 3. enable it in your `application.config.php` file.
-4. Add the mysql.sql file to your database
-5. Add the rest oif the data folder to your data folder
-   
+
 ### Manually
 1. Clone this project into your `./vendor/` directory and enable it in your
    `application.config.php` file.
-2. Add the mysql.sql file to your database
-3. Add the rest oif the data folder to your data folder
+2. Go to step 1.
+
+4. Add the data/mysql.sql file to your database
+5. Insert categories that the forum should have into discuss_tag.
+3. Add topic after loging in and opening a forum category.
 
 ### Requires
-
 1. PHP >= 5.3.0
 2. ZfcUser >= 1.0.0
 
