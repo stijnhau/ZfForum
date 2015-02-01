@@ -2,7 +2,7 @@ Zf2Forum
 ========
 
 # Note
-This module is currently under heavy development.
+This module is currently under heavy development.[UNDERGOING DATABASE CHANGE]
 
 ## Introduction
 Forum module for zf2
@@ -21,7 +21,7 @@ Forum module for zf2
 2. Go to step 1.
 
 4. Add the data/mysql.sql file to your database
-5. Insert categories that the forum should have into discuss_tag.
+5. Insert categories that the forum should have into forum_category.
 3. Add topic after loging in and opening a forum category.
 
 ### Requires
@@ -32,7 +32,7 @@ Forum module for zf2
 1. Create topic.
 2. Reply on topic.
 3. enable and disable quickreply.
-4. Show poster bu customvield
+4. Show poster by customvield
 5. Click on username top redirect to profile[TODO]
 6. edit your own post[TODO]
 7. Show posttime as time ago.
