@@ -1,11 +1,11 @@
 <?php
 
-namespace Zf2Forum\Model\Thread;
+namespace Zf2Forum\Model\Topic;
 
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Zf2Forum\Model\Thread\ThreadInterface;
 
-class ThreadHydrator extends ClassMethods
+class TopicHydrator extends ClassMethods
 {
     /**
      * Extract values from an object
@@ -16,8 +16,8 @@ class ThreadHydrator extends ClassMethods
      */
     public function extract($object)
     {
-        if (!$object instanceof ThreadInterface) {
-            throw new Exception\InvalidArgumentException('$object must be an instance of Zf2Forum\Model\Thread\ThreadInterface');
+        if (!$object instanceof TopicInterface) {
+            throw new Exception\InvalidArgumentException('$object must be an instance of Zf2Forum\Model\Topic\TopicInterface');
         }
         $data = parent::extract($object);
         unset($data['original_message']);
@@ -34,13 +34,13 @@ class ThreadHydrator extends ClassMethods
      *
      * @param  array $data
      * @param  object $object
-     * @return MessageInterface
+     * @return TopicInterface
      * @throws Exception\InvalidArgumentException
      */
     public function hydrate(array $data, $object)
     {
-        if (!$object instanceof ThreadInterface) {
-            throw new Exception\InvalidArgumentException('$object must be an instance of Zf2Forum\Model\Thread\ThreadInterface');
+        if (!$object instanceof TopicInterface) {
+            throw new Exception\InvalidArgumentException('$object must be an instance of Zf2Forum\Model\Thread\TopicInterface');
         }
         return parent::hydrate($data, $object);
     }

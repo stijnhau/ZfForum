@@ -1,6 +1,6 @@
 <?php
 
-namespace Zf2Forum\Model\Thread;
+namespace Zf2Forum\Model\Topic;
 
 use ZfcBase\Mapper\AbstractDbMapper;
 use Zf2Forum\Module as Zf2Forum;
@@ -9,70 +9,69 @@ use Zend\Db\Sql\Expression;
 use Zf2Forum\Service\DbAdapterAwareInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
-class ThreadMapper extends AbstractDbMapper implements ThreadMapperInterface, DbAdapterAwareInterface
+class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAdapterAwareInterface
 {
-    protected $tableName = 'discuss_thread';
-    protected $threadIDField = 'thread_id';
+    protected $tableName = 'forum_topic';
 
     /**
-     * getThreadById
+     * getTopicById
      *
-     * @param int $threadId
-     * @return ThreadInterface
+     * @param int $int
+     * @return TopicInterface
      */
-    public function getThreadById($threadId)
+    public function getTopicById($id)
     {
         $select = $this->getSelect()
-                       ->where(array($this->threadIDField => $threadId));
+                       ->where(array('id' => $id));
         return $this->select($select)->current();
     }
 
     /**
-     * getLatestThreads
+     * getLatestTopics
      *
      * @param int $limit
      * @param int $offset
-     * @return array of ThreadInterface's
+     * @return array of TopicInterface's
      */
-    public function getLatestThreads($limit = 25, $offset = 0, $tagId = false)
+    public function getLatestTopics($limit = 25, $offset = 0, $tagId = false)
     {
         $select = $this->getSelect();
-        $select->join(array('m' => 'discuss_message'),
-                       'm.thread_id = discuss_thread.thread_id',
+        $select->join(array('m' => 'forum_reply'),
+                       'forum_topic.id = m.forum_topic_id',
                        array(
-                           'message_count' => new Expression('COUNT(DISTINCT m.message_id)'),
-                           'last_post' => new Expression('MAX(m.post_time)')
+                           'message_count' => new Expression('COUNT(DISTINCT m.id)'),
+                           'last_post' => new Expression('MAX(m.timestamp_updated)')
                        ),
                        'left')
-                ->join(array('v' => 'discuss_visit'),
-                       'v.thread_id = discuss_thread.thread_id',
+                ->join(array('v' => 'forum_visit'),
+                       'v.forum_topic_id = forum_topic.id',
                        array(
-                           'visit_count' => new Expression('COUNT(DISTINCT v.ip_address)')
+                           'visit_count' => new Expression('COUNT(v.id)')
                        ),
                        'left')
-                ->where(array('tag_id = ?' => $tagId))
-                ->group(array('discuss_thread.subject', 'discuss_thread.slug'));
-        //die($select->getSqlString());    
+                ->where(array('forum_category_id = ?' => $tagId))
+                ->group(array('forum_topic.id'));
+        //die($select->getSqlString());
         return $this->select($select);
     }
 
     /**
      * persist - Persists a thread to the database.
      *
-     * @param ThreadInterface $thread
-     * @return ThreadInterface
+     * @param TopicInterface $thread
+     * @return TopicInterface
      */
-    public function persist(ThreadInterface $thread)
+    public function persist(TopicInterface $thread)
     {
         if ($thread->getThreadId() > 0) {
-            $this->update($thread, null, null, new ThreadHydrator);
+            $this->update($thread, null, null, new TopicHydrator);
         } else {
-            $this->insert($thread, null, new ThreadHydrator);
+            $this->insert($thread, null, new TopicHydrator);
         }
-        
+
         return $thread;
     }
-    
+
     /**
      * insert - Inserts a new thread into the database, using the specified hydrator.
      *
@@ -82,13 +81,13 @@ class ThreadMapper extends AbstractDbMapper implements ThreadMapperInterface, Db
      * @return unknown
      */
     protected function insert($entity, $tableName = null, HydratorInterface $hydrator = null)
-    {  
-        //die(var_dump($entity));      
+    {
+        //die(var_dump($entity));
         $result = parent::insert($entity, $tableName, $hydrator);
         $entity->setThreadId($result->getGeneratedValue());
         return $result;
     }
-    
+
     /**
      * update - Updates an existing thread in the database.
      * @param ThreadInterface $entity

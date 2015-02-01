@@ -73,7 +73,7 @@ class Category implements CategoryInterface
      */
     public function setThreadCount($threadCount)
     {
-        $this->threadCount = $threadCount;
+        $this->_threadCount = $threadCount;
         return $this;
     }
 
@@ -84,7 +84,7 @@ class Category implements CategoryInterface
      */
     public function getThreadCount()
     {
-        return $this->threadCount;
+        return $this->_threadCount;
     }
 
     /**
@@ -94,7 +94,7 @@ class Category implements CategoryInterface
      */
     public function setMessageCount($messageCount)
     {
-        $this->messageCount = $messageCount;
+        $this->_messageCount = $messageCount;
         return $this;
     }
 
@@ -105,7 +105,7 @@ class Category implements CategoryInterface
      */
     public function getMessageCount()
     {
-        return $this->messageCount;
+        return $this->_messageCount;
     }
 
     /**
@@ -115,11 +115,13 @@ class Category implements CategoryInterface
      */
     public function setLastPost($lastPost)
     {
-        if ($lastPost !== "" and $lastPost !== "NULL" and $lastPost !== NULL) {
+        if ($lastPost == 0) {
+            $this->_lastPost = 0;
+        } elseif ($lastPost !== "" and $lastPost !== "NULL" and $lastPost !== NULL) {
             if ($lastPost instanceof DateTime) {
-                $this->lastPost = $lastPost;
+                $this->_lastPost = $lastPost;
             } else {
-                $this->lastPost = new DateTime($lastPost);
+                $this->_lastPost = new DateTime($lastPost);
             }
         }
         return $this;
@@ -132,6 +134,6 @@ class Category implements CategoryInterface
      */
     public function getLastPost()
     {
-        return $this->lastPost;
+        return $this->_lastPost;
     }
 }
