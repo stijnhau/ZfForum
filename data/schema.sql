@@ -102,9 +102,9 @@ ALTER TABLE `forum_topic`
  ADD PRIMARY KEY (`id`), ADD KEY `forum_category_id` (`forum_category_id`), ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `forum_vist`
+-- Indexes for table `forum_visit`
 --
-ALTER TABLE `forum_vist`
+ALTER TABLE `forum_visit`
  ADD PRIMARY KEY (`id`), ADD KEY `forum_topic_id` (`forum_topic_id`,`user_id`), ADD KEY `user_id` (`user_id`);
 
 --
@@ -127,9 +127,9 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 ALTER TABLE `forum_topic`
 MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `forum_vist`
+-- AUTO_INCREMENT for table `forum_visit`
 --
-ALTER TABLE `forum_vist`
+ALTER TABLE `forum_visit`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
@@ -150,11 +150,11 @@ ADD CONSTRAINT `forum_topic_ibfk_1` FOREIGN KEY (`forum_category_id`) REFERENCES
 ADD CONSTRAINT `forum_topic_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
--- Constraints for table `forum_vist`
+-- Constraints for table `forum_visit`
 --
-ALTER TABLE `forum_vist`
-ADD CONSTRAINT `forum_vist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
-ADD CONSTRAINT `forum_vist_ibfk_2` FOREIGN KEY (`forum_topic_id`) REFERENCES `forum_topic` (`id`);
+ALTER TABLE `forum_visit`
+ADD CONSTRAINT `forum_visit_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+ADD CONSTRAINT `forum_visit_ibfk_2` FOREIGN KEY (`forum_topic_id`) REFERENCES `forum_topic` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
