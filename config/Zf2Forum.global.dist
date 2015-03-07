@@ -2,14 +2,14 @@
 
 return array(
     'zf2forum' => array(
-        /* Show a quick reply option inside a topic
-         *
+        /**
+         * Show a quick reply option inside a topic
          * Default: false
          */
         'showQuickReply'    => false,
 
-        /*
-         * Dow we want to show the navigation menu inside the messaging module.
+        /**
+         * Do we want to show the navigation menu inside the messaging module.
          * To go from inbox to outbox and to the compose dirtectly?
          * Default value: email
          */
