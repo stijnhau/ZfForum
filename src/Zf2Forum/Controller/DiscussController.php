@@ -13,7 +13,7 @@ class DiscussController extends AbstractActionController
     protected $thread;
     protected $moduleOptions;
     protected $userMapper;
-    
+
     /**
      * gets User Mapper
      *
@@ -24,10 +24,10 @@ class DiscussController extends AbstractActionController
         if (!$this->userMapper) {
             $this->userMapper = $this->getServiceLocator()->get('zfcuser_user_mapper');
         }
-    
+
         return $this->userMapper;
     }
-    
+
     /**
      * gets module options from ServiceManager
      *
@@ -38,13 +38,13 @@ class DiscussController extends AbstractActionController
         if (!$this->moduleOptions) {
             $this->moduleOptions = $this->getServiceLocator()->get('Zf2Forum\ModuleOptions');
         }
-    
+
         return $this->moduleOptions;
     }
-    
+
     public function forumsAction()
     {
-        $tags = $this->getDiscussService()->getTags();
+        $tags = $this->getDiscussService()->getCategories();
 
         return new ViewModel(
             array(
@@ -52,9 +52,9 @@ class DiscussController extends AbstractActionController
                 'showTimeAgo'   => $this->getModuleOptions()->getShowTimeAgo(),
             )
         );
-        
+
     }
-    
+
     public function threadsAction()
     {
         $verifyTag = $this->verifyTag();
@@ -68,17 +68,16 @@ class DiscussController extends AbstractActionController
 
         if (0 === $verifyTag) {
             return $this->redirect()->toRoute(
-                'Zf2Forum',
+                'forum/category',
                 array(
-                    'tagslug' => $tag->getSlug(),
-                    'tagid'   => $tag->getTagId()
+                    'categoryid'   => $tag->getId()
                 )
             );
         }
 
-        $threads = $this->getDiscussService()->getLatestThreads(25, 0, $tag->getTagId());
+        $threads = $this->getDiscussService()->getLatestThreads(25, 0, $tag->getid());
         $form = $this->getServiceLocator()->get('Zf2Forum_form');
-        
+
         return new ViewModel(
             array(
                 'tag'           => $tag,
@@ -91,50 +90,40 @@ class DiscussController extends AbstractActionController
 
     protected function messagesAction()
     {
-        $verifyTag    = $this->verifyTag();
         $verifyThread = $this->verifyThread();
 
-        if (-1 === $verifyTag || -1 == $verifyThread) {
-            return $response;
-        }
+        if (-1 == $verifyThread) {
+            /**
+             * @todo make a nice template for over here
+             */
+            die();
+        } else {
+            $thread = $this->getThread();
+/*
+            // Store visit if unique.
+            $visit = $this->getServiceLocator()->get('Zf2Forum_visit');
+            $visit->setThread($thread);
+            $this->getDiscussService()->storeVisitIfUnique($visit);
 
-        $tag    = $this->getTag();
-        $thread = $this->getThread();
+            // Get messages.
+            $replys = $this->getDiscussService()->getMessagesByThread($thread);
+*/
+            $messages = array($thread);
 
-        if (0 === $verifyTag || 0 === $verifyThread) {
-            return $this->redirect()->toRoute(
-                'Zf2Forum/thread',
+            // Create new form instance.
+            $form = $this->getServiceLocator()->get('Zf2Forum_form');
+
+            // Return a view model.
+            return new ViewModel(
                 array(
-                    'tagslug'       => $tag->getSlug(),
-                    'tagid'         => $tag->getTagId(),
-                    'threadslug'    => $thread->getSlug(),
-                    'threadid'      => $thread->getThreadId(),
+                    'thread'         => $thread,
+                    'messages'       => $messages,
+                    'showQuickReply' => $this->getModuleOptions()->getShowQuickReply(),
+                    'showTimeAgo'    => $this->getModuleOptions()->getShowTimeAgo(),
+                    'form'           => $form
                 )
             );
         }
-
-        // Store visit if unique.
-        $visit = $this->getServiceLocator()->get('Zf2Forum_visit');
-        $visit->setThread($thread);
-        $this->getDiscussService()->storeVisitIfUnique($visit);
-          
-        // Get messages.
-        $messages = $this->getDiscussService()->getMessagesByThread($thread);
-
-        // Create new form instance.
-        $form = $this->getServiceLocator()->get('Zf2Forum_form');
-        
-        // Return a view model.
-        return new ViewModel(
-            array(
-                'tag'            => $tag,
-                'thread'         => $thread,
-                'messages'       => $messages,
-                'showQuickReply' => $this->getModuleOptions()->getShowQuickReply(),
-                'showTimeAgo'    => $this->getModuleOptions()->getShowTimeAgo(),
-                'form'           => $form
-            )
-        );
     }
 
     public function newmessageAction()
@@ -142,41 +131,41 @@ class DiscussController extends AbstractActionController
         // Create new form and hydrator instances.
         $form = $this->getServiceLocator()->get('Zf2Forum_form');
         $formHydrator = $this->getServiceLocator()->get('Zf2Forum_post_form_hydrator');
-        
+
         $tag = $this->getTag();
         $thread = $this->getThread();
-        
+
         // Check if the request is a POST.
         $request = $this->getRequest();
         if ($request->isPost()) {
             // POST, so check if valid.
             $data = (array) $request->getPost();
-          
+
             // create a new message and sets its thread.
             $message = $this->getServiceLocator()->get('Zf2Forum_message');
             $message->setThread($thread);
-        
+
             $form->setHydrator($formHydrator);
             $form->bind($message);
             $form->setData($data);
             if ($form->isValid()) {
-          	    // Persist message.
-            	$this->getDiscussService()->createMessage($message);
-                
-            	// Redirect to list of messages
-		        return $this->redirect()->toRoute(
-		            'Zf2Forum/thread',
-		            array(
-    		            'tagslug'    => $tag->getSlug(),
+                // Persist message.
+              $this->getDiscussService()->createMessage($message);
+
+              // Redirect to list of messages
+            return $this->redirect()->toRoute(
+                'Zf2Forum/thread',
+                array(
+                    'tagslug'    => $tag->getSlug(),
                         'tagid'      => $tag->getTagId(),
                         'threadslug' => $thread->getSlug(),
                         'threadid'   => $thread->getThreadId(),
-    		            'action'     => 'messages'
-    		        )
-		        );
+                    'action'     => 'messages'
+                )
+            );
             }
-        } 
-        
+        }
+
         // If not a POST request, then just render the form.
         return new ViewModel(
             array(
@@ -185,37 +174,37 @@ class DiscussController extends AbstractActionController
                 'thread' => $thread
             )
         );
-          
+
     }
-    
+
     public function newthreadAction()
     {
-    	// Create new form instance.
+      // Create new form instance.
         $form = $this->getServiceLocator()->get('Zf2Forum_form');
         $formHydrator = $this->getServiceLocator()->get('Zf2Forum_post_form_hydrator');
-        
+
         $tag = $this->getTag();
-        
+
         // Check if the request is a POST.
         $request = $this->getRequest();
         if ($request->isPost()) {
-    	    // if post, check if valid
+          // if post, check if valid
             $data = (array) $request->getPost();
-            
+
             // create a new thread and sets its tag.
             $thread = $this->getServiceLocator()->get('Zf2Forum_thread');
-            
+
             // Create a new message and set its thread.
             $message = $this->getServiceLocator()->get('Zf2Forum_message');
             $message->setThread($thread);
-            
+
             $form->setHydrator($formHydrator);
             $form->bind($message);
             $form->setData($data);
             if ($form->isValid()) {
                 // Persist message and thread.
                 $thread = $this->getDiscussService()->createThread($tag, $thread, $message);
-                
+
                 // Redirect to list of messages
                 return $this->redirect()->toRoute(
                     'Zf2Forum/thread',
@@ -227,9 +216,9 @@ class DiscussController extends AbstractActionController
                         'action'     => 'messages'
                     )
                 );
-            } 
+            }
         }
-        
+
         // If not a POST request, then just render the form.
         return new ViewModel(
             array(
@@ -238,14 +227,14 @@ class DiscussController extends AbstractActionController
             )
         );
     }
-    
+
     public function verifyTag()
     {
         $tag = $this->getTag();
 
         if (!$tag) {
             return -1;
-        } else if ($tag->getSlug() !== $this->getEvent()->getRouteMatch()->getParam('tagslug')) {
+        } else if ($tag->getId() !== $this->getEvent()->getRouteMatch()->getParam('categoryid')) {
             // fix slug name if it's wrong, redirect to the proper one
             return 0;
         }
@@ -260,7 +249,7 @@ class DiscussController extends AbstractActionController
             $response = $this->getResponse();
             $response->setStatusCode(404);
             return -1;
-        } else if ($thread->getSlug() !== $this->getEvent()->getRouteMatch()->getParam('threadslug')) {
+        } else if ($thread->getId() !== $this->getEvent()->getRouteMatch()->getParam('topicid')) {
             // fix slug name if it's wrong, redirect to the proper one
             return 0;
         }
@@ -272,8 +261,8 @@ class DiscussController extends AbstractActionController
         if (null !== $this->tag) {
             return $this->tag;
         }
-        $tagId = $this->getEvent()->getRouteMatch()->getParam('tagid');
-        return $this->tag = $this->getDiscussService()->getTagById($tagId);
+        $categoryId = $this->getEvent()->getRouteMatch()->getParam('categoryid');
+        return $this->tag = $this->getDiscussService()->getCategoryById($categoryId);
     }
 
     protected function getThread()
@@ -281,8 +270,8 @@ class DiscussController extends AbstractActionController
         if (null !== $this->thread) {
             return $this->thread;
         }
-        $threadId = $this->getEvent()->getRouteMatch()->getParam('threadid');
-        return $this->thread = $this->getDiscussService()->getThreadById($threadId);
+        $topicId = $this->getEvent()->getRouteMatch()->getParam('topicid');
+        return $this->thread = $this->getDiscussService()->getTopicById($topicId);
     }
 
     public function getDiscussService()

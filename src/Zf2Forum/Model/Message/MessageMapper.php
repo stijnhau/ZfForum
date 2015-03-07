@@ -9,9 +9,9 @@ use Zend\Stdlib\Hydrator\HydratorInterface;
 
 class MessageMapper extends AbstractDbMapper implements MessageMapperInterface, DbAdapterAwareInterface
 {
-    protected $tableName = 'discuss_message';
-    protected $messageIDField = 'message_id';
-    protected $threadIDField = 'thread_id';
+    protected $tableName = 'forum_reply';
+    protected $messageIDField = 'id';
+    protected $threadIDField = 'forum_topic_id';
 
     /**
      * getMessageById
@@ -34,7 +34,7 @@ class MessageMapper extends AbstractDbMapper implements MessageMapperInterface, 
      * @param int $offest
      * @return array of Zf2Forum\Model\Message\MessageInterface's
      */
-    public function getMessagesByThread($threadId, $limit = 25, $offset = 0)
+    public function getMessagesByTopic($threadId, $limit = 25, $offset = 0)
     {
         $select = $this->getSelect()
                        ->where(array($this->threadIDField => $threadId));
@@ -60,7 +60,7 @@ class MessageMapper extends AbstractDbMapper implements MessageMapperInterface, 
 
     /**
      * insert - Inserts a new message into the database, using the specified hydrator.
-     * 
+     *
      * @param MessageInterface $entity
      * @param String $tableName
      * @param HydratorInterface $hydrator
@@ -83,7 +83,7 @@ class MessageMapper extends AbstractDbMapper implements MessageMapperInterface, 
     protected function update($entity, $where = null, $tableName = null, HydratorInterface $hydrator = null)
     {
         if (!$where) {
-            $where = 'message_id = ' . $entity->getMessageId();
+            $where = 'id = ' . $entity->getId();
         }
         return parent::update($entity, $where, $tableName, $hydrator);
     }

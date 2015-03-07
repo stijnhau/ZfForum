@@ -21,11 +21,11 @@ class MessageHydrator extends ClassMethods
         }
         $data = parent::extract($object);
 
-        
+
         $thread = $object->getThread();
-        $data['thread_id'] = (int)$thread->getThreadId();
-        unset($data['thread']);
-        $data['post_time'] = $data['post_time']->format('Y-m-d H:i:s');
+        $data['forum_topic_id'] = (int)$thread->getId();
+        unset($data['topic']);
+        $data['timestamp_created'] = $data['timestamp_created']->format('Y-m-d H:i:s');
         return $data;
     }
 
@@ -42,10 +42,10 @@ class MessageHydrator extends ClassMethods
         if (!$object instanceof MessageEntityInterface) {
             throw new Exception\InvalidArgumentException('$object must be an instance of Zf2Forum\Model\Message\MessageInterface');
         }
-        
+
         // example of mapping a field
         $data = $this->mapField('user_id', 'id', $data);
-        
+
         return parent::hydrate($data, $object);
     }
 

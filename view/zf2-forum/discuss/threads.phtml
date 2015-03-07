@@ -5,9 +5,8 @@
   <li class="active"><?php echo $tag->getName(); ?></li>
 </ol>
 
-<a href="<?php echo $this->url('Zf2Forum/newthread', array(
-                'tagslug' => $tag->getSlug(),
-                'tagid' => $tag->getTagId()
+<a href="<?php echo $this->url('forum/category/newthread', array(
+                'categoryid' => $tag->getId()
             )); ?>"><?php echo $this->translate("New thread") ?></a>
 
 <table class="table table-hover">
@@ -23,14 +22,11 @@
 
     <tbody>
     <?php foreach ($threads as $thread): ?>
-    <tr onclick="location.href='<?php echo $this->url('Zf2Forum/thread', array(
-                'tagslug' => $tag->getSlug(),
-                'tagid' => $tag->getTagId(),
-                'threadslug' => $thread->getSlug(),
-                'threadid' => $thread->getThreadId()
+    <tr onclick="location.href='<?php echo $this->url('forum/topic', array(
+                'topicid' => $thread->getId(),
             )); ?>'" onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='hand'">
         <td>
-            <?php echo $thread->getSubject(); ?>
+            <?php echo $thread->getTitle(); ?>
         </td>
         <td>
             <span><?php echo $thread->getVisitCount(); ?></span>

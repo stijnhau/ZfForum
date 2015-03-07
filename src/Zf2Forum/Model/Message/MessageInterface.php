@@ -11,76 +11,62 @@ interface MessageInterface
      *
      * @return int
      */
-    public function getMessageId();
+    public function getId();
 
     /**
      * Set messageId.
      *
      * @param int $messageId the value to be set
      */
-    public function setMessageId($messageId);
+    public function setId($messageId);
 
     /**
      * Get postTime.
      *
      * @return DateTime
      */
-    public function getPostTime();
+    public function getTimestampCreated();
 
     /**
      * Set postTime.
      *
      * @param mixed $postTime the value to be set
      */
-    public function setPostTime($postTime);
+    public function setTimestampCreated($postTime);
 
     /**
      * Get subject.
      *
      * @return string
      */
-    public function getSubject();
-    
+    public function getTitle();
+
     /**
      * Set subject.
      *
      * @param string $subject the value to be set
     */
-    public function setSubject($subject);
-    
+    public function setTitle($subject);
+
     /**
      * Get message.
      *
      * @return string
      */
-    public function getMessage();
+    public function getText();
 
     /**
      * Set message.
      *
      * @param string $message the value to be set
      */
-    public function setMessage($message);
+    public function setText($message);
 
-    /**
-     * Get parentMessageId.
-     *
-     * @return int
-     */
-    public function getParentMessageId();
-
-    /**
-     * Set parentMessageId.
-     *
-     * @param int $parentMessageId the value to be set
-     */
-    public function setParentMessageId($parentMessageId);
-    
     /**
      * @return the $user_id
      */
     public function getUserId();
-    
+
     /**
      * @param number $user_id
      */

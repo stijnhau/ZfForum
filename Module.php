@@ -29,36 +29,35 @@ class Module
         return array(
             'invokables' => array(
                 'Zf2Forum_post_form_hydrator'   => 'Zend\Stdlib\Hydrator\ClassMethods',
-                'Zf2Forum_thread'               => 'Zf2Forum\Model\Thread\Thread',
+                'Zf2Forum_thread'               => 'Zf2Forum\Model\Topic\Topic',
                 'Zf2Forum_message'              => 'Zf2Forum\Model\Message\Message',
                 'Zf2Forum_form'                 => 'Zf2Forum\Form\PostForm',
             ),
             'factories' => array(
                 'Zf2Forum\ModuleOptions'        => 'Zf2Forum\Factory\ModuleOptionsFactory',
                 'Zf2Forum_user_mapper'          => 'Zf2Forum\Factory\UserMapperFactory',
-                
+
                 'Zf2Forum_discuss_service' => function($sm) {
                     $service = new \Zf2Forum\Service\Discuss;
-                    $service->setThreadMapper($sm->get('Zf2Forum_thread_mapper'))
+                    $service->setTopicMapper($sm->get('Zf2Forum_topic_mapper'))
                             ->setMessageMapper($sm->get('Zf2Forum_message_mapper'))
-                            ->setTagMapper($sm->get('Zf2Forum_tag_mapper'))
+                            ->setCategoryMapper($sm->get('Zf2Forum_category_mapper'))
                             ->setVisitMapper($sm->get('Zf2Forum_visit_mapper'));
                     return $service;
                 },
-                'Zf2Forum_thread_mapper' => function($sm) {
-                    $mapper = new \Zf2Forum\Model\Thread\ThreadMapper;
-                    //$threadModelClass = static::getOption('thread_model_class');
-                    $threadModelClass = Module::getOption('thread_model_class');
+                'Zf2Forum_topic_mapper' => function($sm) {
+                    $mapper = new \Zf2Forum\Model\Topic\TopicMapper;
+                    $threadModelClass = Module::getOption('topic_model_class');
                     $mapper->setEntityPrototype(new $threadModelClass);
                     $mapper->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods);
+                    $mapper->setServiceLocator($sm);
                     return $mapper;
 
                 },
-                'Zf2Forum_tag_mapper' => function($sm) {
-                    $mapper = new \Zf2Forum\Model\Tag\TagMapper;
-                    //$tagModelClass = static::getOption('tag_model_class');
-                    $tagModelClass = Module::getOption('tag_model_class');
-                    $mapper->setEntityPrototype(new $tagModelClass);
+                'Zf2Forum_category_mapper' => function($sm) {
+                    $mapper = new \Zf2Forum\Model\Category\CategoryMapper;
+                    $categoryModelClass = Module::getOption('category_model_class');
+                    $mapper->setEntityPrototype(new $categoryModelClass);
                     $mapper->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods);
                     return $mapper;
                 },
@@ -117,7 +116,7 @@ class Module
         }
         return static::$options[$option];
     }
-    
+
     public function getViewHelperConfig()
     {
         return array(
@@ -126,6 +125,6 @@ class Module
                 'privateSmartTime'  => 'Zf2Forum\View\Helper\SmartTime',
             )
         );
-    
+
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Zf2Forum\Model\Topic;
 
-use ZfcBase\Model\ModelAbstract;
 use Zf2Forum\Model\Topic\TopicInterface;
 use DateTime;
 
@@ -39,6 +38,38 @@ class Topic implements TopicInterface
      * @var Date
      */
     private $_lastPost;
+
+    /**
+     * @var DateTime
+     */
+    private $_timestampCreated;
+
+    /**
+     * @var integer
+     */
+    private $_user_id;
+
+
+    /**
+     * @return the $timestampCreated
+     */
+    public function getTimestampCreated()
+    {
+        return $this->_timestampCreated;
+    }
+
+    /**
+     * @param DateTime $timestampCreated
+     */
+    public function setTimestampCreated($postTime)
+    {
+        if ($postTime instanceof DateTime) {
+            $this->_timestampCreated = $postTime;
+        } else {
+            $this->_timestampCreated = new DateTime($postTime);
+        }
+        return $this;
+    }
 
     /**
      * @return the $_id
@@ -151,4 +182,16 @@ class Topic implements TopicInterface
     {
         $this->_lastPost = $_lastPost;
     }
+
+    public function getUserId()
+    {
+        return $this->_user_id;
+    }
+
+    public function setUserId($_user_id)
+    {
+        $this->_user_id = $_user_id;
+        return $this;
+    }
+
 }

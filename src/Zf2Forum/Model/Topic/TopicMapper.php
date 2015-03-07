@@ -8,10 +8,23 @@ use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Expression;
 use Zf2Forum\Service\DbAdapterAwareInterface;
 use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAdapterAwareInterface
+class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAdapterAwareInterface, ServiceLocatorAwareInterface
 {
     protected $tableName = 'forum_topic';
+    protected $service_manager;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->service_manager = $serviceLocator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->service_manager;
+    }
 
     /**
      * getTopicById
@@ -23,7 +36,15 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
     {
         $select = $this->getSelect()
                        ->where(array('id' => $id));
-        return $this->select($select)->current();
+        $ret = $this->select($select)->current();
+        /**
+         * @return \Zd2Forum\Options\ModuleOptions
+         */
+        $options = $this->getServiceLocator()->get('Zf2Forum\ModuleOptions');
+        $funcName = "get" . $options->getUserColumn();
+        $user = $this->getServiceLocator()->get("Zf2Forum_user_mapper")->findById($ret->getUserId());
+        $ret->user = $user->$funcName();
+        return $ret;
     }
 
     /**

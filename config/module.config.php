@@ -9,11 +9,11 @@ return array(
             ),
         ),
     ),
-    
+
     'Zf2Forum' => array(
-        'thread_model_class'  => 'Zf2Forum\Model\Thread\Thread',
+        'topic_model_class'     => 'Zf2Forum\Model\Topic\Topic',
         'message_model_class' => 'Zf2Forum\Model\Message\Message',
-        'tag_model_class'     => 'Zf2Forum\Model\Tag\Tag',
+        'category_model_class'  => 'Zf2Forum\Model\Category\Category',
         'visit_model_class'   => 'Zf2Forum\Model\Visit\Visit'
     ),
     'service_manager' => array(
@@ -30,68 +30,54 @@ return array(
     'router' => array(
         'routes' => array(
             'forum' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
-                    'route' => '/forum',
-                    'defaults' => array(
-                        'controller' => 'Zf2Forum\Controller\DiscussController',
-                        'action' => 'forums',
-                    ),
-                ),
-            ),
-            'Zf2Forum' => array(
                 'type'    => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/:tagslug{-}-:tagid[/]',
-                    'constraints' => array(
-                        'tagslug' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'tagid'   => '[0-9]+',
-                    ),
+                    'route'    => '/forum',
                     'defaults' => array(
-                        'controller' => 'Zf2Forum\Controller\DiscussController',
-                        'action'     => 'threads',
+                        'controller'    => 'Zf2Forum\Controller\DiscussController',
+                        'action'        => 'forums',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'thread' => array(
-                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                    'category' => array(
+                        'type'    => 'Segment',
                         'options' => array(
-                            'route'    => ':threadslug{-}-:threadid[/]',
-                            'constraints' => array(
-                                'threadslug' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'threadid'   => '[0-9]+',
-                            ),
+                            'route'    => '/category/:categoryid',
                             'defaults' => array(
-                                'controller' => 'Zf2Forum\Controller\DiscussController',
-                                'action'     => 'messages',
+                                'action' => 'threads',
+                            ),
+                            'constraints' => array(
+                                'categoryid' => '[0-9]*'
                             ),
                         ),
                         'may_terminate' => true,
                         'child_routes' => array(
-                            'newmessage' => array(
-                                'type' => 'Literal',
+                            'newthread' => array(
+                                'type'    => 'Segment',
                                 'options' => array(
-                                    'route' => 'newmessage',
+                                    'route'    => '/newthread',
                                     'defaults' => array(
-                                        'action' => 'newmessage'
-                                    )
-                                )
-                            )
-                        ),
+                                        'action' => 'newthread',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                            ),
+                        )
                     ),
-                    'newthread' => array(
-                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                    'topic' => array(
+                        'type'    => 'Segment',
                         'options' => array(
-                            'route'    => 'newthread',
+                            'route'    => '/topic/:topicid',
                             'defaults' => array(
-                                'controller' => 'Zf2Forum\Controller\DiscussController',
-                                'action'     => 'newthread',
+                                'action' => 'messages',
+                            ),
+                            'constraints' => array(
+                                'topicid' => '[0-9]*'
                             ),
                         ),
-                        'may_terminate' => true,
                     ),
-                ),
+                )
             ),
         ),
     ),

@@ -20,7 +20,7 @@ interface MessageMapperInterface
      * @param int $offest
      * @return array of Zf2Forum\Model\Message\MessageInterface's
      */
-    public function getMessagesByThread($threadId, $limit = 25, $offset = 0);
+    public function getMessagesByTopic($threadId, $limit = 25, $offset = 0);
 
     /**
      * persist

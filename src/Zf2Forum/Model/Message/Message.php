@@ -9,39 +9,30 @@ class Message implements MessageInterface
     /**
      * @var int
      */
-    protected $messageId;
+    protected $id;
 
     /**
      * @var DateTime
      */
-    protected $postTime;
+    protected $timestampCreated;
 
-    /**
-     * @var ThreadInterface
-     */
-    protected $thread;
-    
     /**
      * @var string
      */
-    protected $subject;
-    
+    protected $title;
+
     /**
      * @var string
      */
-    protected $message;
+    protected $text;
 
-    /**
-     * @var int
-     */
-    protected $parentMessageId;
-    
+
     /**
      * @var int
      */
     protected $userId;
 
-	/**
+  /**
      * @return the $userId
      */
     public function getUserId()
@@ -49,7 +40,7 @@ class Message implements MessageInterface
         return $this->userId;
     }
 
-	/**
+  /**
      * @param number $userId
      */
     public function setUserId($userId)
@@ -57,14 +48,14 @@ class Message implements MessageInterface
         $this->userId = $userId;
     }
 
-	/**
+  /**
      * Get messageId.
      *
      * @return int
      */
-    public function getMessageId()
+    public function getId()
     {
-        return $this->messageId;
+        return $this->id;
     }
 
     /**
@@ -72,9 +63,9 @@ class Message implements MessageInterface
      *
      * @param int $messageId the value to be set
      */
-    public function setMessageId($messageId)
+    public function setId($messageId)
     {
-        $this->messageId = $messageId;
+        $this->id = $messageId;
         return $this;
     }
 
@@ -83,9 +74,9 @@ class Message implements MessageInterface
      *
      * @return DateTime
      */
-    public function getPostTime()
+    public function getTimestampCreated()
     {
-        return $this->postTime;
+        return $this->timestampCreated;
     }
 
     /**
@@ -93,66 +84,45 @@ class Message implements MessageInterface
      *
      * @param mixed $postTime the value to be set
      */
-    public function setPostTime($postTime)
+    public function setTimestampCreated($postTime)
     {
         if ($postTime instanceof DateTime) {
-            $this->postTime = $postTime;
+            $this->timestampCreated = $postTime;
         } else {
-            $this->postTime = new DateTime($postTime);
+            $this->timestampCreated = new DateTime($postTime);
         }
         return $this;
     }
 
     /**
-     * Get thread.
-     *
-     * @return ThreadInterface
-     */
-    public function getThread()
-    {
-        return $this->thread;
-    }
-    
-    /**
-     * Set thread.
-     *
-     * @param ThreadInterface $thread the value to be set
-     */
-    public function setThread($thread)
-    {
-        $this->thread = $thread;
-        return $this;
-    }
-    
-    /**
      * Get subject.
      *
      * @return string
      */
-    public function getSubject()
+    public function getTitle()
     {
-        return $this->subject;
+        return $this->title;
     }
-    
+
     /**
      * Set subject.
      *
      * @param string $subject the value to be set
      */
-    public function setSubject($subject)
+    public function setTitle($subject)
     {
-        $this->subject = $subject;
+        $this->title = $subject;
         return $this;
     }
-    
+
     /**
      * Get message.
      *
      * @return string
      */
-    public function getMessage()
+    public function getText()
     {
-        return $this->message;
+        return $this->text;
     }
 
     /**
@@ -160,30 +130,9 @@ class Message implements MessageInterface
      *
      * @param string $message the value to be set
      */
-    public function setMessage($message)
+    public function setText($message)
     {
-        $this->message = $message;
-        return $this;
-    }
-
-    /**
-     * Get parentMessageId.
-     *
-     * @return int
-     */
-    public function getParentMessageId()
-    {
-        return $this->parentMessageId;
-    }
-
-    /**
-     * Set parentMessageId.
-     *
-     * @param int $parentMessageId the value to be set
-     */
-    public function setParentMessageId($parentMessageId)
-    {
-        $this->parentMessageId = $parentMessageId;
+        $this->text = $message;
         return $this;
     }
 }

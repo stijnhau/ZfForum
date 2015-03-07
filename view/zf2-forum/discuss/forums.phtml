@@ -17,9 +17,8 @@
 
     <tbody>
     <?php foreach($tags as $tag): ?>
-    <tr onclick="location.href='<?php echo $this->url('Zf2Forum', array(
-        'tagslug' => $tag->getSlug(),
-        'tagid' => $tag->getTagId()
+    <tr onclick="location.href='<?php echo $this->url('forum/category', array(
+        'categoryid' => $tag->getId()
     ));?>'" onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='hand'">
         <td>
             <?php echo $tag->getName() . "<br />" . $tag->getDescription(); ?>

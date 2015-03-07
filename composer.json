@@ -5,11 +5,7 @@
     "ext-intl" : "*",
     "zendframework/zendframework" : "2.*",
     "zf-commons/zfc-base" : "0.*",
-    "zf-commons/zfc-user" : "1.*",
-    "bacon/bacon-string-utils" : "1.*"
-  },
-  "suggest": {
-    "stijnhau/zf2-forum-admin": "The admin module fot this forum"
+    "zf-commons/zfc-user" : "1.*"
   },
   "authors" : [ {
     "name" : "Stijn Haulotte",
@@ -22,6 +18,9 @@
       "Zf2Forum" : "src/"
     },
     "classmap" : [ "./Module.php" ]
+  },
+  "suggest" : {
+    "stijnhau/zf2-forum-admin" : "The admin module fot this forum"
   },
   "type" : "library",
   "homepage" : "https://github.com/stijnhau/Zf2Forum"

@@ -6,13 +6,13 @@ use Zend\ServiceManager\ServiceManagerAwareInterface,
     Zend\ServiceManager\ServiceManager,
     Zf2Forum\Model\Message\MessageInterface,
     Zf2Forum\Model\Message\MessageMapperInterface,
-    Zf2Forum\Model\Thread\ThreadInterface,
-    Zf2Forum\Model\Thread\ThreadMapperInterface,
-    Zf2Forum\Model\Tag\TagInterface,
-    Zf2Forum\Model\Tag\TagMapperInterface,
+    Zf2Forum\Model\Topic\TopicInterface,
+    Zf2Forum\Model\Topic\TopicMapperInterface,
+    Zf2Forum\Model\Category\CategoryMapperInterface,
     Zf2Forum\Model\Visit\VisitInterface,
     Zf2Forum\Model\Visit\VisitMapperInterface,
     ZfcBase\EventManager\EventProvider;
+use Zf2Forum\Model\Category\CategoryInterface;
 
 class Discuss extends EventProvider implements ServiceManagerAwareInterface
 {
@@ -20,11 +20,11 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      * @var ServiceManager
      */
     protected $serviceManager;
-    
+
     /**
-     * @var ThreadMapperInterface
+     * @var TopicMapperInterface
      */
-    protected $threadMapper;
+    protected $topicMapper;
 
     /**
      * @var MessageMapperInterface
@@ -32,9 +32,9 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
     protected $messageMapper;
 
     /**
-     * @var TagMapperInterface
+     * @var CategoryMapperInterface
      */
-    protected $tagMapper;
+    protected $categoryMapper;
 
     /**
      * Retrieve service manager instance
@@ -45,7 +45,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
     {
         return $this->serviceManager;
     }
-    
+
     /**
      * Set service manager instance
      *
@@ -57,7 +57,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
         $this->serviceManager = $serviceManager;
         return $this;
     }
-    
+
     /**
      * getLatestThreads
      *
@@ -68,7 +68,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      */
     public function getLatestThreads($limit = 25, $offset = 0, $tagId = false)
     {
-        return $this->threadMapper->getLatestThreads($limit, $offset, $tagId);
+        return $this->topicMapper->getLatestTopics($limit, $offset, $tagId);
     }
 
     /**
@@ -79,21 +79,21 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      * @param int $offset
      * @return array
      */
-    public function getMessagesByThread(ThreadInterface $thread, $limit = 25, $offset = 0)
+    public function getMessagesByThread(TopicInterface $thread, $limit = 25, $offset = 0)
     {
-        $messages = $this->messageMapper->getMessagesByThread($thread->getThreadId(), $limit, $offset);
+        $messages = $this->messageMapper->getMessagesByTopic($thread->getThreadId(), $limit, $offset);
         $messagesRet = array();
         foreach ($messages as $message) {
             $sender = $this->getServiceManager()->get("Zf2Forum_user_mapper")->findById($message->getUserId());
             /**
-             * @return \Zd2Forum\Options\ModuleOptions 
+             * @return \Zd2Forum\Options\ModuleOptions
              */
             $options = $this->getServiceManager()->get('Zf2Forum\ModuleOptions');
             $funcName = "get" . $options->getUserColumn();
             $message->user = $sender->$funcName();
             $messagesRet[] = $message;
         }
-        
+
         return $messagesRet;
     }
 
@@ -109,10 +109,10 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
     {
         $thread->setSubject($message->getSubject());
         $thread->settag_id($tag->getTagId());
-        
+
         $message->setPostTime(new \DateTime);
         $message->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
-        
+
         $this->getEventManager()->trigger(
             __FUNCTION__,
             $message,
@@ -121,10 +121,10 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
                 'thread'  => $thread,
             )
         );
-        
+
         $thread = $this->threadMapper->persist($thread);
         $message = $this->messageMapper->persist($message);
-        
+
         $this->getEventManager()->trigger(
             __FUNCTION__ . '.post',
             $message,
@@ -133,7 +133,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
                 'thread'  => $thread,
             )
         );
-        
+
         return $thread;
     }
 
@@ -155,11 +155,11 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      * @return MessageInterface
      */
     public function createMessage(MessageInterface $message)
-    {   
+    {
         // Set post time and persist message.
         $message->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
         $message->setPostTime(new \DateTime);
-        
+
         $this->getEventManager()->trigger(
             __FUNCTION__,
             $message,
@@ -167,9 +167,9 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
                 'message' => $message,
             )
         );
-        
+
         $message = $this->messageMapper->persist($message);
-        
+
         $this->getEventManager()->trigger(
             __FUNCTION__ . '.post',
             $message,
@@ -187,30 +187,30 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      * @return MessageInterface
      */
     public function updateMessage(MessageInterface $message)
-    {   
+    {
         $message->setPostTime(new \DateTime);
-        return $this->messageMapper->persist($message); 
+        return $this->messageMapper->persist($message);
     }
 
     /**
      * getTagById
      *
-     * @param int $tagId
-     * @return TagInterface
+     * @param int $id
+     * @return CategoryInterface
      */
-    public function getTagById($tagId)
+    public function getCategoryById($id)
     {
-        return $this->tagMapper->getTagById($tagId);
+        return $this->categoryMapper->getCategoryById($id);
     }
-    
+
     /**
-     * getTags
-     * 
+     * getCategories
+     *
      * @return array
      */
-    public function getTags()
+    public function getCategories()
     {
-        return $this->tagMapper->getTags();
+        return $this->categoryMapper->getCategories();
     }
 
     /**
@@ -219,14 +219,14 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      * @param int $threadId
      * @return ThreadInterface
      */
-    public function getThreadById($threadId)
+    public function getTopicById($threadId)
     {
-        return $this->threadMapper->getThreadById($threadId);
+        return $this->topicMapper->getTopicById($threadId);
     }
 
     /**
      * getMessageById
-     * 
+     *
      * @param int $messageId
      * @return MessageInterface
      */
@@ -234,7 +234,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
     {
         return $this->messageMapper->getMessageById($messageId);
     }
-    
+
     /**
      * getThreadMapper
      *
@@ -251,9 +251,9 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      * @param ThreadMapperInterface $threadMapper
      * @return Discuss
      */
-    public function setThreadMapper($threadMapper)
+    public function setTopicMapper($topicMapper)
     {
-        $this->threadMapper = $threadMapper;
+        $this->topicMapper = $topicMapper;
         return $this;
     }
 
@@ -280,29 +280,29 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
     }
 
     /**
-     * Get tagMapper.
+     * Get categoryMapper.
      *
-     * @return tagMapper
+     * @return categoryMapper
      */
-    public function getTagMapper()
+    public function getCategoryMapper()
     {
-        return $this->tagMapper;
+        return $this->categoryMapper;
     }
 
     /**
-     * Set tagMapper.
+     * Set categoryMapper.
      *
-     * @param TagMapperInterface $tagMapper the value to be set
+     * @param CategoryMapperInterface $categoryMapper the value to be set
      */
-    public function setTagMapper(TagMapperInterface $tagMapper)
+    public function setCategoryMapper(CategoryMapperInterface $categoryMapper)
     {
-        $this->tagMapper = $tagMapper;
+        $this->categoryMapper = $categoryMapper;
         return $this;
     }
-    
+
     /**
      * Set Visit Mapper
-     * 
+     *
      * Enter description here ...
      * @param VisitMapperInterface $visitMapper
      */
@@ -311,20 +311,20 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
     	$this->visitMapper = $visitMapper;
     	return $this;
     }
-    
+
     /**
      * Get Vist Mapper.
-     * 
+     *
      * Enter description here ...
      */
     public function getVisitMapper()
     {
     	return $this->visitMapper;
     }
-    
+
     /**
      * storeVisitIfUnique - records the visit if it is unuiqe.
-     * @param ThreadInterface $thread
+     * @param VisitInterface $vist
      * @return \Zf2Forum\Service\Discuss
      */
     public function storeVisitIfUnique(VisitInterface $visit)
