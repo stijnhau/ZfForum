@@ -47,7 +47,9 @@ class Topic implements TopicInterface
     /**
      * @var integer
      */
-    private $_user_id;
+    private $_userId;
+
+    private $_forumCategoryId;
 
 
     /**
@@ -178,20 +180,37 @@ class Topic implements TopicInterface
     /**
      * @param \Zf2Forum\Model\Topic\Date $_lastPost
      */
-    public function setLastPost($_lastPost)
+    public function setLastPost($postTime)
     {
-        $this->_lastPost = $_lastPost;
+        if ($postTime instanceof DateTime) {
+            $this->_lastPost = $postTime;
+        } elseif ($postTime !== NULL) {
+            $this->_lastPost = new DateTime($postTime);
+        }
+        return $this;
     }
 
     public function getUserId()
     {
-        return $this->_user_id;
+        return $this->_userId;
     }
 
-    public function setUserId($_user_id)
+    public function setUserId($_userId)
     {
-        $this->_user_id = $_user_id;
+        $this->_userId = $_userId;
         return $this;
     }
+
+    public function getForumcategoryid()
+    {
+        return $this->_forumCategoryId;
+    }
+
+    public function setForumcategoryid($_forumCategoryId)
+    {
+        $this->_forumCategoryId = $_forumCategoryId;
+        return $this;
+    }
+
 
 }

@@ -102,34 +102,29 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      *
      * @param TagInterface $tag
      * @param ThreadInterface $thread
-     * @param MessageInterface $message
      * @return ThreadInterface
      */
-    public function createThread(TagInterface $tag, ThreadInterface $thread, MessageInterface $message)
+    public function createThread(CategoryInterface $tag, TopicInterface $thread)
     {
-        $thread->setSubject($message->getSubject());
-        $thread->settag_id($tag->getTagId());
+        $thread->setForumCategoryId($tag->getid());
 
-        $message->setPostTime(new \DateTime);
-        $message->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
+        $thread->setTimestampCreated(new \DateTime);
+        $thread->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
 
         $this->getEventManager()->trigger(
             __FUNCTION__,
-            $message,
+            $thread,
             array(
-                'message' => $message,
                 'thread'  => $thread,
             )
         );
 
         $thread = $this->threadMapper->persist($thread);
-        $message = $this->messageMapper->persist($message);
 
         $this->getEventManager()->trigger(
             __FUNCTION__ . '.post',
-            $message,
+            $thread,
             array(
-                'message' => $message,
                 'thread'  => $thread,
             )
         );
@@ -143,7 +138,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      * @param ThreadInterface $thread
      * @return ThreadInterface
      */
-    public function updateThread(ThreadInterface $thread)
+    public function updateThread(TopicMapperInterface $thread)
     {
         return $this->threadMapper->persist($thread);
     }
@@ -158,7 +153,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
     {
         // Set post time and persist message.
         $message->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
-        $message->setPostTime(new \DateTime);
+        $message->setTimestampCreated(new \DateTime);
 
         $this->getEventManager()->trigger(
             __FUNCTION__,
@@ -308,8 +303,8 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      */
     public function setVisitMapper(VisitMapperInterface $visitMapper)
     {
-    	$this->visitMapper = $visitMapper;
-    	return $this;
+      $this->visitMapper = $visitMapper;
+      return $this;
     }
 
     /**
@@ -319,7 +314,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      */
     public function getVisitMapper()
     {
-    	return $this->visitMapper;
+      return $this->visitMapper;
     }
 
     /**

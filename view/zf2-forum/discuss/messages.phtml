@@ -40,16 +40,13 @@ if ($this->showQuickReply === true) {
     </div>
     <div class="panel-body">
         <?php
-//            $form = $this->form;
-//            $form->prepare();
-//            $form->setAttribute('action', $this->url('Zf2Forum/thread/newmessage', array(
-//              'tagslug'    => $this->tag->getSlug(),
-//              'tagid'      => $this->tag->getTagId(),
-//              'threadslug' => $this->thread->getSlug(),
-//              'threadid'   => $this->thread->getThreadId(),
-//              'action'     => 'newmessage')));
-//          $form->setAttribute('method', 'post');
-//          echo $this->renderForm($form);
+            $form = $this->form;
+            $form->prepare();
+            $form->setAttribute('action', $this->url('forum/topic/reply', array(
+              'topicid'   => $this->thread->getId(),
+              'action'     => 'newmessage')));
+          $form->setAttribute('method', 'post');
+          echo $this->renderForm($form);
         ?>
     </div>
 </div>

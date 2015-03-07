@@ -1,11 +1,10 @@
 <h3><?php echo $this->translate('New Thread'); ?></h3>
 
 <ol class="breadcrumb">
-  <li><a href="<?php echo $this->url('forum'); ?>">Forum List</a></li>
-  <li><a href="<?php echo $this->url('Zf2Forum', array(
-      'tagslug' => $tag->getSlug(),
-      'tagid' => $tag->getTagId()
-  )); ?>"><?php echo $tag->getName(); ?></a></li>
+  <li><a href="<?php echo $this->url('forum'); ?>"><?php echo $this->translate("Forum List");?></a></li>
+  <li><a href="<?php echo $this->url('forum/category', array(
+      'categoryid'    => $this->category->getId(),
+  )); ?>"><?php echo $category->getName(); ?></a></li>
   <li class="active"><?php echo $this->translate('New Thread'); ?></li>
 </ol>
 
@@ -17,18 +16,17 @@
         <?php
         $form = $this->form;
         $form->prepare();
-	    $form->setAttribute(
+      $form->setAttribute(
             'action',
             $this->url(
-                'Zf2Forum/newthread',
+                'forum/category/newthread',
                 array(
-        	        'tagslug'    => $this->tag->getSlug(),
-        	        'tagid'      => $this->tag->getTagId(),
-    	        )
+                  'categoryid'    => $this->category->getId(),
+              )
             )
         );
-	    $form->setAttribute('method', 'post');
-	    echo $this->renderForm($form);	
+      $form->setAttribute('method', 'post');
+      echo $this->renderForm($form);
         ?>
     </div>
 </div>

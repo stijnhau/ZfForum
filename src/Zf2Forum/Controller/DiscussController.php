@@ -183,7 +183,7 @@ class DiscussController extends AbstractActionController
         $form = $this->getServiceLocator()->get('Zf2Forum_form');
         $formHydrator = $this->getServiceLocator()->get('Zf2Forum_post_form_hydrator');
 
-        $tag = $this->getTag();
+        $category = $this->getTag();
 
         // Check if the request is a POST.
         $request = $this->getRequest();
@@ -192,26 +192,19 @@ class DiscussController extends AbstractActionController
             $data = (array) $request->getPost();
 
             // create a new thread and sets its tag.
-            $thread = $this->getServiceLocator()->get('Zf2Forum_thread');
-
-            // Create a new message and set its thread.
-            $message = $this->getServiceLocator()->get('Zf2Forum_message');
-            $message->setThread($thread);
+            $topic = $this->getServiceLocator()->get('Zf2Forum_thread');
 
             $form->setHydrator($formHydrator);
-            $form->bind($message);
+            $form->bind($topic);
             $form->setData($data);
             if ($form->isValid()) {
                 // Persist message and thread.
-                $thread = $this->getDiscussService()->createThread($tag, $thread, $message);
+                $thread = $this->getDiscussService()->createThread($category, $topic);
 
                 // Redirect to list of messages
                 return $this->redirect()->toRoute(
                     'Zf2Forum/thread',
                     array(
-                        'tagslug'    => $tag->getSlug(),
-                        'tagid'      => $tag->getTagId(),
-                        'threadslug' => $thread->getSlug(),
                         'threadid'   => $thread->getThreadId(),
                         'action'     => 'messages'
                     )
@@ -222,8 +215,8 @@ class DiscussController extends AbstractActionController
         // If not a POST request, then just render the form.
         return new ViewModel(
             array(
-                'form'   => $form,
-                'tag'    => $tag
+                'form'      => $form,
+                'category'  => $category
             )
         );
     }

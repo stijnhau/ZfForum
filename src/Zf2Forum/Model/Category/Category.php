@@ -116,7 +116,7 @@ class Category implements CategoryInterface
     public function setLastPost($lastPost)
     {
         if ($lastPost == 0) {
-            $this->_lastPost = 0;
+            $this->_lastPost = "";
         } elseif ($lastPost !== "" and $lastPost !== "NULL" and $lastPost !== NULL) {
             if ($lastPost instanceof DateTime) {
                 $this->_lastPost = $lastPost;

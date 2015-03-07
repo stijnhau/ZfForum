@@ -76,6 +76,19 @@ return array(
                                 'topicid' => '[0-9]*'
                             ),
                         ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'reply' => array(
+                                'type'    => 'Segment',
+                                'options' => array(
+                                    'route'    => '/reply',
+                                    'defaults' => array(
+                                        'action' => 'reply',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                            ),
+                        )
                     ),
                 )
             ),
