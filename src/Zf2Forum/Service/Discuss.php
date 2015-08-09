@@ -107,8 +107,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
     public function createThread(CategoryInterface $tag, TopicInterface $thread)
     {
         $thread->setForumCategoryId($tag->getid());
-
-        $thread->setTimestampCreated(new \DateTime);
+        $thread->setTimestampCreated(date("Y-m-d H:i:s"));
         $thread->setUserId($this->getServiceManager()->get('zfcuser_auth_service')->getIdentity()->getId());
 
         $this->getEventManager()->trigger(
@@ -119,7 +118,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
             )
         );
 
-        $thread = $this->threadMapper->persist($thread);
+        $thread = $this->topicMapper->persist($thread);
 
         $this->getEventManager()->trigger(
             __FUNCTION__ . '.post',

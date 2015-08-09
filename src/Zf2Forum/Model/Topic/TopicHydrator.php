@@ -20,12 +20,9 @@ class TopicHydrator extends ClassMethods
             throw new Exception\InvalidArgumentException('$object must be an instance of Zf2Forum\Model\Topic\TopicInterface');
         }
         $data = parent::extract($object);
-        unset($data['original_message']);
-        unset($data['latest_message']);
-        unset($data['slugifier']);
-        unset($data['message_count']);
-        unset($data['visit_count']);
-        unset($data['last_post']);
+        if ($data['id'] == "") {
+            unset($data['id']);
+        }
         return $data;
     }
 

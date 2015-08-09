@@ -203,10 +203,10 @@ class DiscussController extends AbstractActionController
 
                 // Redirect to list of messages
                 return $this->redirect()->toRoute(
-                    'Zf2Forum/thread',
+                    'forum/topic',
                     array(
-                        'threadid'   => $thread->getThreadId(),
-                        'action'     => 'messages'
+                        'topicid'   => $thread->getId(),
+                        'action'    => 'messages'
                     )
                 );
             }

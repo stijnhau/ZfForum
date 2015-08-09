@@ -22,11 +22,6 @@ interface TopicInterface
     public function getText();
 
     /**
-     * @return the $_latestMessage
-     */
-    public function getLatestMessage();
-
-    /**
      * @return the $_messageCount
      */
     public function getMessageCount();
@@ -37,9 +32,9 @@ interface TopicInterface
     public function getVisitCount();
 
     /**
-     * @return the $_lastPost
+     * @return the $_forumCategoryId
      */
-    public function getLastPost();
+    public function getForumCategoryId();
 
     /**
      * @param number $_id
@@ -57,11 +52,6 @@ interface TopicInterface
     public function setText($_text);
 
     /**
-     * @param \Zf2Forum\Model\Topic\TopicInterface $_latestMessage
-     */
-    public function setLatestMessage(TopicInterface $_latestMessage);
-
-    /**
      * @param number $_messageCount
      */
     public function setMessageCount($_messageCount);
@@ -72,7 +62,7 @@ interface TopicInterface
     public function setVisitCount($_visitCount);
 
     /**
-     * @param \Date $_lastPost
+     * @param string $_forumCategoryId
      */
-    public function setLastPost($_lastPost);
+    public function setForumCategoryId($_forumCategoryId);
 }

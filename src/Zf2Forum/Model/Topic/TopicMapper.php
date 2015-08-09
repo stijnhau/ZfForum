@@ -84,7 +84,7 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
      */
     public function persist(TopicInterface $thread)
     {
-        if ($thread->getThreadId() > 0) {
+        if ($thread->getId() > 0) {
             $this->update($thread, null, null, new TopicHydrator);
         } else {
             $this->insert($thread, null, new TopicHydrator);
@@ -103,9 +103,8 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
      */
     protected function insert($entity, $tableName = null, HydratorInterface $hydrator = null)
     {
-        //die(var_dump($entity));
         $result = parent::insert($entity, $tableName, $hydrator);
-        $entity->setThreadId($result->getGeneratedValue());
+        $entity->setId($result->getGeneratedValue());
         return $result;
     }
 
@@ -119,7 +118,7 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
     protected function update($entity, $where = null, $tableName = null, HydratorInterface $hydrator = null)
     {
         if (!$where) {
-            $where = 'thread_id = ' . $entity->getThreadId();
+            $where = 'id = ' . $entity->getId();
         }
         return parent::update($entity, $where, $tableName, $hydrator);
     }

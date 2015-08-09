@@ -19,10 +19,7 @@ class Topic implements TopicInterface
 
     private $_text;
 
-    /**
-     * @var MessageInterface
-     */
-    private $_latestMessage;
+    private $_lastPost;
 
     /**
      * @var integer
@@ -34,10 +31,6 @@ class Topic implements TopicInterface
      */
     private $_visitCount;
 
-    /**
-     * @var Date
-     */
-    private $_lastPost;
 
     /**
      * @var DateTime
@@ -49,6 +42,9 @@ class Topic implements TopicInterface
      */
     private $_userId;
 
+    /**
+     * @var integer
+     */
     private $_forumCategoryId;
 
 
@@ -61,15 +57,11 @@ class Topic implements TopicInterface
     }
 
     /**
-     * @param DateTime $timestampCreated
+     * @param $timestampCreated
      */
     public function setTimestampCreated($postTime)
     {
-        if ($postTime instanceof DateTime) {
-            $this->_timestampCreated = $postTime;
-        } else {
-            $this->_timestampCreated = new DateTime($postTime);
-        }
+        $this->_timestampCreated = $postTime;
         return $this;
     }
 
@@ -97,37 +89,6 @@ class Topic implements TopicInterface
         return $this->_text;
     }
 
-    /**
-     * @return the $_latestMessage
-     */
-    public function getLatestMessage()
-    {
-        return $this->_latestMessage;
-    }
-
-    /**
-     * @return the $_messageCount
-     */
-    public function getMessageCount()
-    {
-        return $this->_messageCount;
-    }
-
-    /**
-     * @return the $_visitCount
-     */
-    public function getVisitCount()
-    {
-        return $this->_visitCount;
-    }
-
-    /**
-     * @return the $_lastPost
-     */
-    public function getLastPost()
-    {
-        return $this->_lastPost;
-    }
 
     /**
      * @param number $_id
@@ -153,42 +114,6 @@ class Topic implements TopicInterface
         $this->_text = $_text;
     }
 
-    /**
-     * @param \Zf2Forum\Model\Topic\TopicInterface $_latestMessage
-     */
-    public function setLatestMessage(TopicInterface $_latestMessage)
-    {
-        $this->_latestMessage = $_latestMessage;
-    }
-
-    /**
-     * @param number $_messageCount
-     */
-    public function setMessageCount($_messageCount)
-    {
-        $this->_messageCount = $_messageCount;
-    }
-
-    /**
-     * @param number $_visitCount
-     */
-    public function setVisitCount($_visitCount)
-    {
-        $this->_visitCount = $_visitCount;
-    }
-
-    /**
-     * @param \Zf2Forum\Model\Topic\Date $_lastPost
-     */
-    public function setLastPost($postTime)
-    {
-        if ($postTime instanceof DateTime) {
-            $this->_lastPost = $postTime;
-        } elseif ($postTime !== NULL) {
-            $this->_lastPost = new DateTime($postTime);
-        }
-        return $this;
-    }
 
     public function getUserId()
     {
@@ -201,16 +126,48 @@ class Topic implements TopicInterface
         return $this;
     }
 
-    public function getForumcategoryid()
+    public function getForumCategoryId()
     {
         return $this->_forumCategoryId;
     }
 
-    public function setForumcategoryid($_forumCategoryId)
+    public function setForumCategoryId($_forumCategoryId)
     {
         $this->_forumCategoryId = $_forumCategoryId;
         return $this;
     }
 
+    public function getMessagecount()
+    {
+        return $this->_messageCount;
+    }
+
+    public function setMessagecount($_messageCount)
+    {
+        $this->_messageCount = $_messageCount;
+        return $this;
+    }
+
+    public function getVisitcount()
+    {
+        return $this->_visitCount;
+    }
+
+    public function setVisitcount($_visitCount)
+    {
+        $this->_visitCount = $_visitCount;
+        return $this;
+    }
+
+    public function getLastpost()
+    {
+        return $this->_lastPost;
+    }
+
+    public function setLastpost($_lastPost)
+    {
+        $this->_lastPost = $_lastPost;
+        return $this;
+    }
 
 }
