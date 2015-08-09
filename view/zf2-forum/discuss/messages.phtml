@@ -31,7 +31,7 @@ echo $this->privateSmartTime()->fromDateTime(
 </div>
 <?php endforeach;
 
-if ($this->showQuickReply === true) {
+if ($this->showQuickReply === true && $this->zfcUserIdentity()) {
 ?>
 
 <div class="panel panel-primary">

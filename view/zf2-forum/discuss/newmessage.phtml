@@ -1,3 +1,9 @@
+<?php
+if(!$this->zfcUserIdentity()):
+    // display the login form
+    echo $this->zfcUserLoginWidget(array('redirect'=>'application'));
+else:
+?>
 <h3><?php echo $this->translate('New Message'); ?></h3>
 
 <?php
@@ -10,5 +16,6 @@
 	    'threadid'   => $this->thread->getThreadId(),
 	)));
 	$form->setAttribute('method', 'post');
-	echo $this->renderForm($form);	
-?>
+	echo $this->renderForm($form);
+
+endif;

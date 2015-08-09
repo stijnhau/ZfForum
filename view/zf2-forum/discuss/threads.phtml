@@ -5,12 +5,13 @@
   <li class="active"><?php echo $tag->getName(); ?></li>
 </ol>
 
+<?php if($this->zfcUserIdentity()): ?>
 <a href="<?php echo $this->url('forum/category/newthread', array(
                 'categoryid' => $tag->getId()
             )); ?>"><?php echo $this->translate("New thread") ?></a>
+<?php endif?>
 
 <table class="table table-hover">
-
     <thead>
     <tr>
         <th><?php echo $this->translate("Threads"); ?></th>

@@ -1,3 +1,10 @@
+<?php
+if(!$this->zfcUserIdentity()):
+    // display the login form
+    echo $this->zfcUserLoginWidget(array('redirect'=>'application'));
+else:
+?>
+
 <h3><?php echo $this->translate('New Thread'); ?></h3>
 
 <ol class="breadcrumb">
@@ -30,3 +37,5 @@
         ?>
     </div>
 </div>
+<?php
+endif;

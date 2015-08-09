@@ -100,7 +100,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
     /**
      * createThread
      *
-     * @param TagInterface $tag
+     * @param CategoryInterface $tag
      * @param ThreadInterface $thread
      * @return ThreadInterface
      */
