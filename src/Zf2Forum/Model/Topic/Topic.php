@@ -137,34 +137,34 @@ class Topic implements TopicInterface
         return $this;
     }
 
-    public function getMessagecount()
+    public function getMessageCount()
     {
         return $this->_messageCount;
     }
 
-    public function setMessagecount($_messageCount)
+    public function setMessageCount($_messageCount)
     {
         $this->_messageCount = $_messageCount;
         return $this;
     }
 
-    public function getVisitcount()
+    public function getVisitCount()
     {
         return $this->_visitCount;
     }
 
-    public function setVisitcount($_visitCount)
+    public function setVisitCount($_visitCount)
     {
         $this->_visitCount = $_visitCount;
         return $this;
     }
 
-    public function getLastpost()
+    public function getLastPost()
     {
         return $this->_lastPost;
     }
 
-    public function setLastpost($_lastPost)
+    public function setLastPost($_lastPost)
     {
         $this->_lastPost = $_lastPost;
         return $this;

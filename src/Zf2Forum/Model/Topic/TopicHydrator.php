@@ -23,6 +23,9 @@ class TopicHydrator extends ClassMethods
         if ($data['id'] == "") {
             unset($data['id']);
         }
+        unset($data['message_count']);
+        unset($data['visit_count']);
+        unset($data['last_post']);
         return $data;
     }
 
