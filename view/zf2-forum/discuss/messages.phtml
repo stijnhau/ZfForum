@@ -2,10 +2,9 @@
 
 <ol class="breadcrumb">
   <li><a href="<?php echo $this->url('forum'); ?>">Forum List</a></li>
-  <li><a href="<?php // echo $this->url('Zf2Forum', array(
-      //'tagslug' => $tag->getSlug(),
-      //'tagid' => $tag->getTagId()
-  //)); ?>"><?php // echo $tag->getName(); ?></a></li>
+  <li><a href="<?php echo $this->url('forum/category', array(
+      'categoryid' => $category->getId()
+  )); ?>"><?php echo $category->getName(); ?></a></li>
   <li class="active"><?php echo $thread->getTitle(); ?></li>
 </ol>
 

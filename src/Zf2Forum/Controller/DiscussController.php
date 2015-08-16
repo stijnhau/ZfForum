@@ -99,6 +99,7 @@ class DiscussController extends AbstractActionController
             die();
         } else {
             $thread = $this->getThread();
+            $category = $this->getTag();
 /*
             // Store visit if unique.
             $visit = $this->getServiceLocator()->get('Zf2Forum_visit');
@@ -116,6 +117,7 @@ class DiscussController extends AbstractActionController
             // Return a view model.
             return new ViewModel(
                 array(
+                    'category'       => $category,
                     'thread'         => $thread,
                     'messages'       => $messages,
                     'showQuickReply' => $this->getModuleOptions()->getShowQuickReply(),
@@ -249,13 +251,36 @@ class DiscussController extends AbstractActionController
         return 1;
     }
 
+    /**
+     * Retrieve the category by the set url
+     *
+     * @access public
+     * @author Stijn
+     * @version 1.0.0
+     * @return boolean / CategoryInterface
+     */
     public function getTag()
     {
         if (null !== $this->tag) {
             return $this->tag;
         }
+
         $categoryId = $this->getEvent()->getRouteMatch()->getParam('categoryid');
-        return $this->tag = $this->getDiscussService()->getCategoryById($categoryId);
+        if (is_numeric($categoryId)) {
+            return $this->tag = $this->getDiscussService()->getCategoryById($categoryId);
+        }
+
+        // Find category by topic
+        $topicId = $this->getEvent()->getRouteMatch()->getParam('topicid');
+        if (is_numeric($topicId)) {
+            // Fetch the topic
+            $topic = $this->getDiscussService()->getTopicById($topicId);
+
+            // Fetch the category
+            return $this->tag = $this->getDiscussService()->getCategoryById($topic->getforumCategoryId());
+        }
+
+        return false;
     }
 
     protected function getThread()
