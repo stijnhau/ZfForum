@@ -30,31 +30,35 @@ echo $this->privateSmartTime()->fromDateTime(
 </div>
 <?php endforeach;
 
-if ($this->showQuickReply === true && $this->zfcUserIdentity()) {
-?>
+if ($this->zfcUserIdentity()) {
+    if ($this->showQuickReply === true) {
+    ?>
 
-<div class="panel panel-primary">
-    <div class="panel-heading clearfix">
-        <h4 class="pull-left"><?php echo $this->translate("New Message");?></h4>
+    <div class="panel panel-primary">
+        <div class="panel-heading clearfix">
+            <h4 class="pull-left"><?php echo $this->translate("New Message");?></h4>
+        </div>
+        <div class="panel-body">
+            <?php
+                $form = $this->form;
+                $form->prepare();
+                $form->setAttribute('action', $this->url('forum/topic/reply', array(
+                  'topicid'   => $this->thread->getId(),
+                  'action'     => 'newmessage')));
+              $form->setAttribute('method', 'post');
+              echo $this->renderForm($form);
+            ?>
+        </div>
     </div>
-    <div class="panel-body">
-        <?php
-            $form = $this->form;
-            $form->prepare();
-            $form->setAttribute('action', $this->url('forum/topic/reply', array(
-              'topicid'   => $this->thread->getId(),
-              'action'     => 'newmessage')));
-          $form->setAttribute('method', 'post');
-          echo $this->renderForm($form);
-        ?>
-    </div>
-</div>
+    <?php
+    }
+    ?>
+<a href="<?php echo $this->url(
+    'forum/topic/reply',
+    array(
+        'topicid'   => $this->thread->getId()
+    )
+); ?>"><?php echo $this->translate("Reply") ;?></a>
 <?php
 }
 ?>
-<a href="<?php //echo $this->url('Zf2Forum/thread/newmessage', array(
-              //'tagslug'    => $this->tag->getSlug(),
-              //'tagid'      => $this->tag->getTagId(),
-              //'threadslug' => $this->thread->getSlug(),
-              //'threadid'   => $this->thread->getThreadId()
-              //)); ?>"><?php echo $this->translate("Reply") ;?></a>
