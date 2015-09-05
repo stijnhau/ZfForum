@@ -112,7 +112,7 @@ class DiscussController extends AbstractActionController
             $messages = array($thread);
 
             // Create new form instance.
-            $form = $this->getServiceLocator()->get('Zf2Forum_form');
+            $form = $this->getServiceLocator()->get('Zf2Forum_replyform');
 
             // Return a view model.
             return new ViewModel(
@@ -128,10 +128,10 @@ class DiscussController extends AbstractActionController
         }
     }
 
-    public function newmessageAction()
+    public function replyAction()
     {
         // Create new form and hydrator instances.
-        $form = $this->getServiceLocator()->get('Zf2Forum_form');
+        $form = $this->getServiceLocator()->get('Zf2Forum_replyform');
         $formHydrator = $this->getServiceLocator()->get('Zf2Forum_post_form_hydrator');
 
         $tag = $this->getTag();
@@ -152,19 +152,19 @@ class DiscussController extends AbstractActionController
             $form->setData($data);
             if ($form->isValid()) {
                 // Persist message.
-              $this->getDiscussService()->createMessage($message);
+                $this->getDiscussService()->createMessage($message);
 
-              // Redirect to list of messages
-            return $this->redirect()->toRoute(
-                'Zf2Forum/thread',
-                array(
-                    'tagslug'    => $tag->getSlug(),
-                        'tagid'      => $tag->getTagId(),
-                        'threadslug' => $thread->getSlug(),
-                        'threadid'   => $thread->getThreadId(),
-                    'action'     => 'messages'
-                )
-            );
+                // Redirect to list of messages
+                return $this->redirect()->toRoute(
+                    'Zf2Forum/thread',
+                    array(
+                        'tagslug'    => $tag->getSlug(),
+                            'tagid'      => $tag->getTagId(),
+                            'threadslug' => $thread->getSlug(),
+                            'threadid'   => $thread->getThreadId(),
+                        'action'     => 'messages'
+                    )
+                );
             }
         }
 

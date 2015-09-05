@@ -9,12 +9,15 @@ else:
 <?php
     $form = $this->form;
     $form->prepare();
-	$form->setAttribute('action', $this->url('Zf2Forum/thread/newmessage', array(
-	    'tagslug'    => $this->tag->getSlug(),
-	    'tagid'      => $this->tag->getTagId(),
-	    'threadslug' => $this->thread->getSlug(),
-	    'threadid'   => $this->thread->getThreadId(),
-	)));
+	$form->setAttribute(
+	    'action',
+	    $this->url(
+	        'forum/topic/reply',
+	        array(
+    	        'topicid'   => $this->thread->getId()
+            )
+	    )
+	);
 	$form->setAttribute('method', 'post');
 	echo $this->renderForm($form);
 

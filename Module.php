@@ -32,6 +32,7 @@ class Module
                 'Zf2Forum_thread'               => 'Zf2Forum\Model\Topic\Topic',
                 'Zf2Forum_message'              => 'Zf2Forum\Model\Message\Message',
                 'Zf2Forum_form'                 => 'Zf2Forum\Form\PostForm',
+                'Zf2Forum_replyform'            => 'Zf2Forum\Form\ReplyForm',
             ),
             'factories' => array(
                 'Zf2Forum\ModuleOptions'        => 'Zf2Forum\Factory\ModuleOptionsFactory',
