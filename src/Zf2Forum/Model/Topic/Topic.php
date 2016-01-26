@@ -159,15 +159,32 @@ class Topic implements TopicInterface
         return $this;
     }
 
+    /**
+     * Set Last Post
+     *
+     * @param Date $lastPost
+     */
+    public function setLastPost($lastPost)
+    {
+        if ($lastPost == 0) {
+            $this->_lastPost = "";
+        } elseif ($lastPost !== "" and $lastPost !== "NULL" and $lastPost !== NULL) {
+            if ($lastPost instanceof DateTime) {
+                $this->_lastPost = $lastPost;
+            } else {
+                $this->_lastPost = new DateTime($lastPost);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get Last Post.
+     *
+     * @return Date
+     */
     public function getLastPost()
     {
         return $this->_lastPost;
     }
-
-    public function setLastPost($_lastPost)
-    {
-        $this->_lastPost = $_lastPost;
-        return $this;
-    }
-
 }
