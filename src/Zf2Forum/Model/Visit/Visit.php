@@ -10,20 +10,20 @@ class Visit implements VisitInterface
      * @var string
      */
     protected $ipAddress;
-    
+
     /**
      * @var DateTime
      */
     protected $visitTime;
-    
+
     /**
      * @var ThreadInterface
      */
     protected $thread;
-    
+
     /**
      * setIpAddress - Sets the IP address.
-     * 
+     *
      * @param unknown_type $ipAddress
      * @return \Zf2Forum\Model\Visit\Visit
      */
@@ -32,7 +32,7 @@ class Visit implements VisitInterface
         $this->ipAddress = $ipAddress;
         return $this;
     }
-    
+
     /**
      * getIpAddress - Returns the IP address.
      */
@@ -40,10 +40,10 @@ class Visit implements VisitInterface
     {
         return $this->ipAddress;
     }
-    
+
     /**
      * setVisitTime - Sets the visit time.
-     * 
+     *
      * @param unknown_type $visitTime
      * @return \Zf2Forum\Model\Visit\Visit
      */
@@ -56,7 +56,7 @@ class Visit implements VisitInterface
         }
         return $this;
     }
-    
+
     /**
      * getVisitTime - returns the visit time.
      */
@@ -64,10 +64,10 @@ class Visit implements VisitInterface
     {
         return $this->visitTime;
     }
-    
+
     /**
      * setThread - Sets the thread.
-     * 
+     *
      * @param ThreadInterface $thread
      * @return \Zf2Forum\Model\Visit\Visit
      */
@@ -76,7 +76,7 @@ class Visit implements VisitInterface
         $this->thread = $thread;
         return $this;
     }
-    
+
     /**
      * getThread - returns the thread.
      */

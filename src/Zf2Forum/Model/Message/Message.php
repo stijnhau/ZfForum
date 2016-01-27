@@ -32,7 +32,8 @@ class Message implements MessageInterface
      */
     protected $userId;
 
-  /**
+
+    /**
      * @return the $userId
      */
     public function getUserId()
@@ -40,15 +41,16 @@ class Message implements MessageInterface
         return $this->userId;
     }
 
-  /**
-     * @param number $userId
+    /**
+     * @param int $userId
      */
     public function setUserId($userId)
     {
         $this->userId = $userId;
+        return $this;
     }
 
-  /**
+    /**
      * Get messageId.
      *
      * @return int

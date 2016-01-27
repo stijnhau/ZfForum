@@ -1,11 +1,11 @@
 <?php
-
 namespace Zf2Forum\Form;
 
 use Zend\Form\Form;
 
 class ReplyForm extends Form
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -30,18 +30,17 @@ class ReplyForm extends Form
                 'class' => 'form-control',
                 'rows' => '6'
             )
-        )
-        );
+        ));
 
         // Submit button.
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
-                'type'  => 'submit',
+                'type' => 'submit',
                 'value' => 'Post',
-                'id'    => 'submitbutton',
+                'id' => 'submitbutton',
                 'class' => 'btn btn-primary'
-            ),
+            )
         ));
     }
 }

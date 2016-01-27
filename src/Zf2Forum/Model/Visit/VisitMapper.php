@@ -1,5 +1,4 @@
 <?php
-
 namespace Zf2Forum\Model\Visit;
 
 use ZfcBase\Mapper\AbstractDbMapper;
@@ -8,7 +7,7 @@ use Zf2Forum\Service\DbAdapterAwareInterface;
 class VisitMapper extends AbstractDbMapper implements VisitMapperInterface, DbAdapterAwareInterface
 {
     protected $tableName = 'discuss_visit';
-    
+
     public function storeVisitIfUnique($visit)
     {
         $select = $this->getSelect()

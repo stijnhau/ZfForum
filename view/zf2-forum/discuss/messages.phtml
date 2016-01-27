@@ -8,14 +8,14 @@
   <li class="active"><?php echo $thread->getTitle(); ?></li>
 </ol>
 
-<?php foreach ($messages as $message): ?>
+<?php foreach ($messages as $message) : ?>
 <div class="panel panel-default">
     <div class="panel-heading clearfix">
         <h4 class="pull-left"><?php echo $message->getTitle() . " " . $this->translate("by") . " " . $message->user;?></h4>
         <small class="text-muted pull-right">
 <?php
 echo $this->privateSmartTime()->fromDateTime(
-        $this->dateFormat(
+    $this->dateFormat(
         $message->getTimestampCreated(),
         \IntlDateFormatter::MEDIUM, // date
         \IntlDateFormatter::MEDIUM, // time
@@ -40,13 +40,13 @@ if ($this->zfcUserIdentity()) {
         </div>
         <div class="panel-body">
             <?php
-                $form = $this->form;
-                $form->prepare();
-                $form->setAttribute('action', $this->url('forum/topic/reply', array(
+            $form = $this->form;
+            $form->prepare();
+            $form->setAttribute('action', $this->url('forum/topic/reply', array(
                   'topicid'   => $this->thread->getId(),
                   'action'     => 'newmessage')));
-              $form->setAttribute('method', 'post');
-              echo $this->renderForm($form);
+            $form->setAttribute('method', 'post');
+            echo $this->renderForm($form);
             ?>
         </div>
     </div>

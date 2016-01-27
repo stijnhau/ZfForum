@@ -1,24 +1,19 @@
 <?php
-if(!$this->zfcUserIdentity()):
+if (! $this->zfcUserIdentity()) :
     // display the login form
-    echo $this->zfcUserLoginWidget(array('redirect'=>'application'));
-else:
+    echo $this->zfcUserLoginWidget(array(
+        'redirect' => 'application'
+    ));
+else :
 ?>
 <h3><?php echo $this->translate('New Message'); ?></h3>
 
 <?php
     $form = $this->form;
     $form->prepare();
-	$form->setAttribute(
-	    'action',
-	    $this->url(
-	        'forum/topic/reply',
-	        array(
-    	        'topicid'   => $this->thread->getId()
-            )
-	    )
-	);
-	$form->setAttribute('method', 'post');
-	echo $this->renderForm($form);
-
+    $form->setAttribute('action', $this->url('forum/topic/reply', array(
+        'topicid' => $this->thread->getId()
+    )));
+    $form->setAttribute('method', 'post');
+    echo $this->renderForm($form);
 endif;

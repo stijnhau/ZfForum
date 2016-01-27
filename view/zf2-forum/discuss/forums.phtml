@@ -5,7 +5,6 @@
 </ol>
 
 <table class="table table-hover">
-
     <thead>
     <tr>
         <th><?php echo $this->translate("Forums"); ?></th>
@@ -16,7 +15,7 @@
     </thead>
 
     <tbody>
-    <?php foreach($tags as $tag): ?>
+    <?php foreach ($tags as $tag) : ?>
     <tr onclick="location.href='<?php echo $this->url('forum/category', array(
         'categoryid' => $tag->getId()
     ));?>'" onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='hand'">
@@ -31,11 +30,11 @@
         </td>
         <td>
             <small><?php echo $this->privateSmartTime()->fromDateTime($this->dateFormat(
-    $tag->getLastPost(),
-    \IntlDateFormatter::MEDIUM, // date
-    \IntlDateFormatter::MEDIUM, // time
-    "nl_NL"
-)); ?></small>
+                $tag->getLastPost(),
+                \IntlDateFormatter::MEDIUM, // date
+                \IntlDateFormatter::MEDIUM, // time
+                "nl_NL"
+            )); ?></small>
         </td>
     </tr>
     <?php endforeach; ?>

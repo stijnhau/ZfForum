@@ -1,5 +1,4 @@
 <?php
-
 namespace Zf2Forum\Model\Topic;
 
 use Zf2Forum\Model\Topic\TopicInterface;
@@ -7,12 +6,15 @@ use DateTime;
 
 class Topic implements TopicInterface
 {
+
     /**
+     *
      * @var int
      */
     private $_id;
 
     /**
+     *
      * @var string
      */
     private $_title;
@@ -22,33 +24,37 @@ class Topic implements TopicInterface
     private $_lastPost;
 
     /**
+     *
      * @var integer
      */
     private $_messageCount;
 
     /**
+     *
      * @var integer
      */
     private $_visitCount;
 
-
     /**
+     *
      * @var DateTime
      */
     private $_timestampCreated;
 
     /**
+     *
      * @var integer
      */
     private $_userId;
 
     /**
+     *
      * @var integer
      */
     private $_forumCategoryId;
 
-
     /**
+     *
      * @return the $timestampCreated
      */
     public function getTimestampCreated()
@@ -57,7 +63,9 @@ class Topic implements TopicInterface
     }
 
     /**
-     * @param $timestampCreated
+     *
+     * @param
+     *            $timestampCreated
      */
     public function setTimestampCreated($postTime)
     {
@@ -66,6 +74,7 @@ class Topic implements TopicInterface
     }
 
     /**
+     *
      * @return the $_id
      */
     public function getId()
@@ -74,6 +83,7 @@ class Topic implements TopicInterface
     }
 
     /**
+     *
      * @return the $_title
      */
     public function getTitle()
@@ -82,6 +92,7 @@ class Topic implements TopicInterface
     }
 
     /**
+     *
      * @return the $_text
      */
     public function getText()
@@ -89,8 +100,8 @@ class Topic implements TopicInterface
         return $this->_text;
     }
 
-
     /**
+     *
      * @param number $_id
      */
     public function setId($_id)
@@ -99,6 +110,7 @@ class Topic implements TopicInterface
     }
 
     /**
+     *
      * @param string $_title
      */
     public function setTitle($_title)
@@ -107,13 +119,13 @@ class Topic implements TopicInterface
     }
 
     /**
+     *
      * @param field_type $_text
      */
     public function setText($_text)
     {
         $this->_text = $_text;
     }
-
 
     public function getUserId()
     {
@@ -168,7 +180,7 @@ class Topic implements TopicInterface
     {
         if ($lastPost == 0) {
             $this->_lastPost = "";
-        } elseif ($lastPost !== "" and $lastPost !== "NULL" and $lastPost !== NULL) {
+        } elseif ($lastPost !== "" and $lastPost !== "NULL" and $lastPost !== null) {
             if ($lastPost instanceof DateTime) {
                 $this->_lastPost = $lastPost;
             } else {

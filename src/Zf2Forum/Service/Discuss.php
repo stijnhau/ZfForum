@@ -2,17 +2,17 @@
 
 namespace Zf2Forum\Service;
 
-use Zend\ServiceManager\ServiceManagerAwareInterface,
-    Zend\ServiceManager\ServiceManager,
-    Zf2Forum\Model\Message\MessageInterface,
-    Zf2Forum\Model\Message\MessageMapperInterface,
-    Zf2Forum\Model\Topic\TopicInterface,
-    Zf2Forum\Model\Topic\TopicMapperInterface,
-    Zf2Forum\Model\Category\CategoryMapperInterface,
-    Zf2Forum\Model\Visit\VisitInterface,
-    Zf2Forum\Model\Visit\VisitMapperInterface,
-    ZfcBase\EventManager\EventProvider;
+use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zf2Forum\Model\Category\CategoryInterface;
+use Zf2Forum\Model\Category\CategoryMapperInterface;
+use Zf2Forum\Model\Message\MessageInterface;
+use Zf2Forum\Model\Message\MessageMapperInterface;
+use Zf2Forum\Model\Topic\TopicInterface;
+use Zf2Forum\Model\Topic\TopicMapperInterface;
+use Zf2Forum\Model\Visit\VisitInterface;
+use Zf2Forum\Model\Visit\VisitMapperInterface;
+use ZfcBase\EventManager\EventProvider;
 
 class Discuss extends EventProvider implements ServiceManagerAwareInterface
 {
@@ -302,8 +302,8 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      */
     public function setVisitMapper(VisitMapperInterface $visitMapper)
     {
-      $this->visitMapper = $visitMapper;
-      return $this;
+        $this->visitMapper = $visitMapper;
+        return $this;
     }
 
     /**
@@ -313,7 +313,7 @@ class Discuss extends EventProvider implements ServiceManagerAwareInterface
      */
     public function getVisitMapper()
     {
-      return $this->visitMapper;
+        return $this->visitMapper;
     }
 
     /**

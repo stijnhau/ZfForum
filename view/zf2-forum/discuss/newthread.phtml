@@ -1,8 +1,8 @@
 <?php
-if(!$this->zfcUserIdentity()):
+if (!$this->zfcUserIdentity()) :
     // display the login form
     echo $this->zfcUserLoginWidget(array('redirect'=>'application'));
-else:
+else :
 ?>
 
 <h3><?php echo $this->translate('New Thread'); ?></h3>
@@ -23,17 +23,17 @@ else:
         <?php
         $form = $this->form;
         $form->prepare();
-      $form->setAttribute(
+        $form->setAttribute(
             'action',
             $this->url(
                 'forum/category/newthread',
                 array(
                   'categoryid'    => $this->category->getId(),
-              )
+                )
             )
         );
-      $form->setAttribute('method', 'post');
-      echo $this->renderForm($form);
+        $form->setAttribute('method', 'post');
+        echo $this->renderForm($form);
         ?>
     </div>
 </div>

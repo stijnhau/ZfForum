@@ -38,7 +38,7 @@ class Module
                 'Zf2Forum\ModuleOptions'        => 'Zf2Forum\Factory\ModuleOptionsFactory',
                 'Zf2Forum_user_mapper'          => 'Zf2Forum\Factory\UserMapperFactory',
 
-                'Zf2Forum_discuss_service' => function($sm) {
+                'Zf2Forum_discuss_service' => function ($sm) {
                     $service = new \Zf2Forum\Service\Discuss;
                     $service->setTopicMapper($sm->get('Zf2Forum_topic_mapper'))
                             ->setMessageMapper($sm->get('Zf2Forum_message_mapper'))
@@ -46,7 +46,7 @@ class Module
                             ->setVisitMapper($sm->get('Zf2Forum_visit_mapper'));
                     return $service;
                 },
-                'Zf2Forum_topic_mapper' => function($sm) {
+                'Zf2Forum_topic_mapper' => function ($sm) {
                     $mapper = new \Zf2Forum\Model\Topic\TopicMapper;
                     $threadModelClass = Module::getOption('topic_model_class');
                     $mapper->setEntityPrototype(new $threadModelClass);
@@ -55,14 +55,14 @@ class Module
                     return $mapper;
 
                 },
-                'Zf2Forum_category_mapper' => function($sm) {
+                'Zf2Forum_category_mapper' => function ($sm) {
                     $mapper = new \Zf2Forum\Model\Category\CategoryMapper;
                     $categoryModelClass = Module::getOption('category_model_class');
                     $mapper->setEntityPrototype(new $categoryModelClass);
                     $mapper->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods);
                     return $mapper;
                 },
-                'Zf2Forum_message_mapper' => function($sm) {
+                'Zf2Forum_message_mapper' => function ($sm) {
                     $mapper = new \Zf2Forum\Model\Message\MessageMapper;
                     //$messageModelClass = static::getOption('message_model_class');
                     $messageModelClass = Module::getOption('message_model_class');
@@ -70,7 +70,7 @@ class Module
                     $mapper->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods);
                     return $mapper;
                 },
-                'Zf2Forum_visit_mapper' => function($sm) {
+                'Zf2Forum_visit_mapper' => function ($sm) {
                     $mapper = new \Zf2Forum\Model\Visit\VisitMapper;
                     $visitModelClass = Module::getOption('visit_model_class');
                     $mapper->setEntityPrototype(new $visitModelClass);
@@ -85,7 +85,7 @@ class Module
                 }
             ),
             'initializers' => array(
-                function($instance, $sm){
+                function ($instance, $sm) {
                     if ($instance instanceof Service\DbAdapterAwareInterface) {
                         $dbAdapter = $sm->get('Zf2Forum_zend_db_adapter');
                         return $instance->setDbAdapter($dbAdapter);

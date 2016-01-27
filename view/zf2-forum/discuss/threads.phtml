@@ -5,11 +5,15 @@
   <li class="active"><?php echo $tag->getName(); ?></li>
 </ol>
 
-<?php if($this->zfcUserIdentity()): ?>
+<?php
+if ($this->zfcUserIdentity()) :
+?>
 <a href="<?php echo $this->url('forum/category/newthread', array(
                 'categoryid' => $tag->getId()
             )); ?>"><?php echo $this->translate("New thread") ?></a>
-<?php endif?>
+<?php
+endif
+?>
 
 <table class="table table-hover">
     <thead>
@@ -22,7 +26,7 @@
     </thead>
 
     <tbody>
-    <?php foreach ($threads as $thread): ?>
+    <?php foreach ($threads as $thread) : ?>
     <tr onclick="location.href='<?php echo $this->url('forum/topic', array(
                 'topicid' => $thread->getId(),
             )); ?>'" onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='hand'">
@@ -37,11 +41,11 @@
         </td>
         <td>
             <small><?php echo $this->privateSmartTime()->fromDateTime($this->dateFormat(
-    $thread->getLastPost(),
-    \IntlDateFormatter::MEDIUM, // date
-    \IntlDateFormatter::MEDIUM, // time
-    "nl_NL"
-)); ?></small>
+                $thread->getLastPost(),
+                \IntlDateFormatter::MEDIUM, // date
+                \IntlDateFormatter::MEDIUM, // time
+                "nl_NL"
+            )); ?></small>
         </td>
     </tr>
     <?php endforeach; ?>

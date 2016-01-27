@@ -1,5 +1,4 @@
 <?php
-
 namespace Zf2Forum\Model\Topic;
 
 use ZfcBase\Mapper\AbstractDbMapper;
@@ -13,7 +12,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAdapterAwareInterface, ServiceLocatorAwareInterface
 {
+
     protected $tableName = 'forum_topic';
+
     protected $service_manager;
 
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
@@ -34,15 +35,19 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
      */
     public function getTopicById($id)
     {
-        $select = $this->getSelect()
-                       ->where(array('id' => $id));
+        $select = $this->getSelect()->where(array(
+            'id' => $id
+        ));
         $ret = $this->select($select)->current();
         /**
+         *
          * @return \Zd2Forum\Options\ModuleOptions
          */
         $options = $this->getServiceLocator()->get('Zf2Forum\ModuleOptions');
         $funcName = "get" . $options->getUserColumn();
-        $user = $this->getServiceLocator()->get("Zf2Forum_user_mapper")->findById($ret->getUserId());
+        $user = $this->getServiceLocator()
+            ->get("Zf2Forum_user_mapper")
+            ->findById($ret->getUserId());
         $ret->user = $user->$funcName();
         return $ret;
     }
@@ -57,22 +62,28 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
     public function getLatestTopics($limit = 25, $offset = 0, $tagId = false)
     {
         $select = $this->getSelect();
-        $select->join(array('m' => 'forum_reply'),
-                       'forum_topic.id = m.forum_topic_id',
-                       array(
-                           'message_count' => new Expression('COUNT(DISTINCT m.id)'),
-                           'last_post' => new Expression('greatest(if(MAX(m.timestamp_updated), MAX(m.timestamp_updated), 0), forum_topic.timestamp_updated)')
-                       ),
-                       'left')
-                ->join(array('v' => 'forum_visit'),
-                       'v.forum_topic_id = forum_topic.id',
-                       array(
-                           'visit_count' => new Expression('COUNT(v.id)')
-                       ),
-                       'left')
-                ->where(array('forum_category_id = ?' => $tagId))
-                ->group(array('forum_topic.id'));
-        //die($select->getSqlString());
+        $select->join(array(
+            'm' => 'forum_reply'
+        ), 'forum_topic.id = m.forum_topic_id', array(
+            'message_count' => new Expression('COUNT(DISTINCT m.id)'),
+            'last_post' => new Expression(
+                'greatest(if(MAX(m.timestamp_updated), MAX(m.timestamp_updated), 0), forum_topic.timestamp_updated)'
+            )
+        ), 'left')
+            ->join(array(
+            'v' => 'forum_visit'
+            ), 'v.forum_topic_id = forum_topic.id', array(
+                'visit_count' => new Expression('COUNT(v.id)')
+            ), 'left')
+                ->where(array(
+                    'forum_category_id = ?' => $tagId
+                ))
+            ->group(
+                array(
+                    'forum_topic.id'
+                )
+            );
+        // die($select->getSqlString());
         return $this->select($select);
     }
 
@@ -85,9 +96,9 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
     public function persist(TopicInterface $thread)
     {
         if ($thread->getId() > 0) {
-            $this->update($thread, null, null, new TopicHydrator);
+            $this->update($thread, null, null, new TopicHydrator());
         } else {
-            $this->insert($thread, null, new TopicHydrator);
+            $this->insert($thread, null, new TopicHydrator());
         }
 
         return $thread;
@@ -110,6 +121,7 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
 
     /**
      * update - Updates an existing thread in the database.
+     *
      * @param ThreadInterface $entity
      * @param String $where
      * @param String $tableName
@@ -117,10 +129,9 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
      */
     protected function update($entity, $where = null, $tableName = null, HydratorInterface $hydrator = null)
     {
-        if (!$where) {
+        if (! $where) {
             $where = 'id = ' . $entity->getId();
         }
         return parent::update($entity, $where, $tableName, $hydrator);
     }
 }
-
