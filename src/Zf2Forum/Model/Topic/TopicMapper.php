@@ -61,7 +61,7 @@ class TopicMapper extends AbstractDbMapper implements TopicMapperInterface, DbAd
                        'forum_topic.id = m.forum_topic_id',
                        array(
                            'message_count' => new Expression('COUNT(DISTINCT m.id)'),
-                           'last_post' => new Expression('if(MAX(m.timestamp_updated), MAX(m.timestamp_updated), forum_topic.timestamp_updated)')
+                           'last_post' => new Expression('greatest(if(MAX(m.timestamp_updated), MAX(m.timestamp_updated), 0), forum_topic.timestamp_updated)')
                        ),
                        'left')
                 ->join(array('v' => 'forum_visit'),

@@ -41,7 +41,7 @@ class CategoryMapper extends AbstractDbMapper implements CategoryMapperInterface
                       'left')
                ->join(array('r' => 'forum_reply'),
                       'r.forum_topic_id = t.id',
-                      array('last_post' => new Expression('if(MAX(r.timestamp_updated), MAX(r.timestamp_updated), if(MAX(t.timestamp_updated), MAX(t.timestamp_updated), 0))'),
+                      array('last_post' => new Expression('greatest(MAX(t.timestamp_updated), if(MAX(t.timestamp_updated), MAX(t.timestamp_updated), 0))'),
                             'message_count' => new Expression('COUNT(r.id)')),
                       'left')
                ->group(array('forum_category.id'));
