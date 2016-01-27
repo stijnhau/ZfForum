@@ -68,10 +68,10 @@ CREATE TABLE IF NOT EXISTS `forum_topic` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `forum_vist`
+-- Table structure for table `forum_visit`
 --
 
-CREATE TABLE IF NOT EXISTS `forum_vist` (
+CREATE TABLE IF NOT EXISTS `forum_visit` (
 `id` int(10) unsigned NOT NULL,
   `forum_topic_id` int(11) unsigned NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
