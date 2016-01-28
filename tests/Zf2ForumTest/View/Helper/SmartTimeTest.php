@@ -4,7 +4,7 @@ namespace Zf2ForumTest\View\Helper;
 /**
  * Zf2Forum\View\Helper\SmartTime test case.
  */
-class SmartTimeTest extends PHPUnit_Framework_TestCase
+class SmartTimeTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
