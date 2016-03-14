@@ -101,6 +101,15 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
+    public function getControllerConfig()
+    {
+        return array(
+            'factories' => array(
+                'Zf2Forum\Controller\DiscussController' => 'Zf2Forum\Controller\Factory\DiscussController',
+            ),
+        );
+    }
+
     public function modulesLoaded($e)
     {
         $config = $e->getConfigListener()->getMergedConfig();

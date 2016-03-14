@@ -22,11 +22,6 @@ return array(
         ),
     ),
     'view_manager' => array('template_path_stack' => array(__DIR__ . '/../view')),
-    'controllers' => array(
-        'invokables' => array(
-            'Zf2Forum\Controller\DiscussController' => 'Zf2Forum\Controller\DiscussController'
-        ),
-    ),
     'router' => array(
         'routes' => array(
             'forum' => array(
