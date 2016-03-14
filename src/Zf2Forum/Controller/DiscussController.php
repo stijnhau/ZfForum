@@ -21,10 +21,6 @@ class DiscussController extends AbstractActionController
      */
     protected function getUserMapper()
     {
-        if (!$this->userMapper) {
-            $this->userMapper = $this->getServiceLocator()->get('zfcuser_user_mapper');
-        }
-
         return $this->userMapper;
     }
 
@@ -35,10 +31,6 @@ class DiscussController extends AbstractActionController
      */
     protected function getModuleOptions()
     {
-        if (!$this->moduleOptions) {
-            $this->moduleOptions = $this->getServiceLocator()->get('Zf2Forum\ModuleOptions');
-        }
-
         return $this->moduleOptions;
     }
 
@@ -294,10 +286,6 @@ class DiscussController extends AbstractActionController
 
     public function getDiscussService()
     {
-        if (null === $this->discussService) {
-            $this->discussService = $this->getServiceLocator()->get('Zf2Forum_discuss_service');
-        }
-
         return $this->discussService;
     }
 
