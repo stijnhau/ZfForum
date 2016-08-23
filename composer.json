@@ -1,5 +1,5 @@
 {
-  "name" : "stijnhau/zf2-forum",
+  "name" : "stijnhau/zf-forum",
   "require" : {
     "php" : ">=5.4",
     "ext-intl" : "*",
