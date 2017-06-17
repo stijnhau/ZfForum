@@ -1,4 +1,8 @@
 <?php
+namespace Zf2Forum;
+
+use Zend\Router\Http\Segment;
+
 return array(
     'translator' => array(
         'translation_file_patterns' => array(
@@ -25,7 +29,7 @@ return array(
     'router' => array(
         'routes' => array(
             'forum' => array(
-                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                'type'    => Segment::class,
                 'options' => array(
                     'route'    => '/forum',
                     'defaults' => array(
@@ -36,7 +40,7 @@ return array(
                 'may_terminate' => true,
                 'child_routes' => array(
                     'category' => array(
-                        'type'    => 'Segment',
+                        'type'    => Segment::class,
                         'options' => array(
                             'route'    => '/category/:categoryid',
                             'defaults' => array(
@@ -49,7 +53,7 @@ return array(
                         'may_terminate' => true,
                         'child_routes' => array(
                             'newthread' => array(
-                                'type'    => 'Segment',
+                                'type'    => Segment::class,
                                 'options' => array(
                                     'route'    => '/newthread',
                                     'defaults' => array(
@@ -61,7 +65,7 @@ return array(
                         )
                     ),
                     'topic' => array(
-                        'type'    => 'Segment',
+                        'type'    => Segment::class,
                         'options' => array(
                             'route'    => '/topic/:topicid',
                             'defaults' => array(
@@ -74,7 +78,7 @@ return array(
                         'may_terminate' => true,
                         'child_routes' => array(
                             'reply' => array(
-                                'type'    => 'Segment',
+                                'type'    => Segment::class,
                                 'options' => array(
                                     'route'    => '/reply',
                                     'defaults' => array(
